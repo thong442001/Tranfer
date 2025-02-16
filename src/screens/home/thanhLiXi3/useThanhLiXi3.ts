@@ -3,32 +3,38 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackRoutes } from '../../../navigations/HomeNavigation';
 import firestore from '@react-native-firebase/firestore';
 
-type UseLiXiVangProps = NativeStackScreenProps<StackRoutes, 'TabHome'>;
+type UseThanhLiXi3Props = NativeStackScreenProps<StackRoutes, 'TabHome'>;
 
 // Định nghĩa kiểu dữ liệu cho state `data`
-interface DaiHoTranhTaiData {
+interface ThanhLiXi3Data {
+  title?: string;
   btn_back?: string;
   backGround?: string;
-  btn_thanh_li_xi?: string;
-  btn_sieu_thi_phu_kien?: string;
+  avt1?: string;
+  avt2?: string;
+  btn_choi?: string;
+  btn_huy?: string;
 }
 
-export const useHomeThanhLiXi = ({ route, navigation }: UseLiXiVangProps) => {
+export const useThanhLiXi3 = ({ route, navigation }: UseThanhLiXi3Props) => {
   const { params } = route;
 
-  const [data, setData] = useState<DaiHoTranhTaiData | null>(null);
+  const [data, setData] = useState<ThanhLiXi3Data | null>(null);
 
   // Firebase collection reference
-  const fb = firestore().collection('Tranfer-PageHomeThanhLiXi');
+  const fb = firestore().collection('Tranfer-PageThanhLiXi3');
 
   useEffect(() => {
-    const unsubscribe = fb.onSnapshot(querySnapshot => {
+    const unsubscribe = fb.limit(1).onSnapshot(querySnapshot => {
       querySnapshot.forEach(doc => {
         setData({
+          title: doc.data()?.title,
           btn_back: doc.data()?.btn_back,
           backGround: doc.data()?.backGround,
-          btn_thanh_li_xi: doc.data()?.btn_thanh_li_xi,
-          btn_sieu_thi_phu_kien: doc.data()?.btn_sieu_thi_phu_kien,
+          avt1: doc.data()?.avt1,
+          avt2: doc.data()?.avt2,
+          btn_choi: doc.data()?.btn_choi,
+          btn_huy: doc.data()?.btn_huy,
         });
       });
     });
@@ -37,18 +43,20 @@ export const useHomeThanhLiXi = ({ route, navigation }: UseLiXiVangProps) => {
   }, []);
 
   const handleBack = () => {
-    navigation.goBack();
-  };
-
-  const toThanhLiXi1 = () => {
     navigation.getParent()?.navigate("LiXiVangHomeNavigation", {
       screen: "ThanhLiXi1",
+    });
+  };
+
+  const toThanhLiXi2 = () => {
+    navigation.getParent()?.navigate("LiXiVangHomeNavigation", {
+      screen: "ThanhLiXi2",
     });
   };
 
   return {
     data,
     handleBack,
-    toThanhLiXi1,
+    toThanhLiXi2
   };
 };

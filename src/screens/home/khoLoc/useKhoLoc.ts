@@ -3,37 +3,33 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackRoutes } from '../../../navigations/HomeNavigation';
 import firestore from '@react-native-firebase/firestore';
 
-type UseLacLocVangProps = NativeStackScreenProps<StackRoutes, 'TabHome'>;
+type UseKhoLocProps = NativeStackScreenProps<StackRoutes, 'TabHome'>;
 
 // Định nghĩa kiểu dữ liệu cho state `data`
-interface LacLocVangData {
-  btn_back?: string;
+interface KhoLocData {
+  title?: string;
   backGround?: string;
-  backGroundPerson?: string;
-  btnLac1Luot?: string;
-  btnLac10Luot?: string;
-  imgPerson?: string;
+  backGround_phu?: string;
+  logo_Vinh_Tuong?: string;
 }
 
-export const useKhoLoc = ({ route, navigation }: UseLacLocVangProps) => {
+export const useKhoLoc = ({ route, navigation }: UseKhoLocProps) => {
   const { params } = route;
 
-  const [data, setData] = useState<LacLocVangData | null>(null);
-  const [isShaken, setIsShaken] = useState<boolean>(false);
+  const [data, setData] = useState<KhoLocData | null>(null);
+  const [isShaken, setIsShaken] = useState<number>(1);
 
   // Firebase collection reference
-  const fb = firestore().collection('Tranfer-PageLacLocVang');
+  const fb = firestore().collection('Tranfer-PageKhoLoc');
 
   useEffect(() => {
     const unsubscribe = fb.onSnapshot(querySnapshot => {
       querySnapshot.forEach(doc => {
         setData({
-          btn_back: doc.data()?.btn_back,
+          title: doc.data()?.title,
           backGround: doc.data()?.backGround,
-          backGroundPerson: doc.data()?.backGroundPerson,
-          btnLac1Luot: doc.data()?.btnLac1Luot,
-          btnLac10Luot: doc.data()?.btnLac10Luot,
-          imgPerson: doc.data()?.imgPerson,
+          backGround_phu: doc.data()?.backGround_phu,
+          logo_Vinh_Tuong: doc.data()?.logo_Vinh_Tuong,
         });
       });
     });
@@ -41,14 +37,9 @@ export const useKhoLoc = ({ route, navigation }: UseLacLocVangProps) => {
     return () => unsubscribe(); // Cleanup để tránh memory leak
   }, []);
 
-  const handleBack = () => {
-    navigation.navigate("HuongDan")
-  };
-
   return {
     data,
     isShaken,
     setIsShaken,
-    handleBack,
   };
 };

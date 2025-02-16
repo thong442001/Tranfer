@@ -26,14 +26,13 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-	  <!-- Do not change NSAllowsArbitraryLoads to true, or you will risk app rejection! -->
 		<key>NSAllowsArbitraryLoads</key>
 		<false/>
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -48,5 +47,27 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SVN-Gotham Black Italic.otf</string>
+		<string>SVN-Gotham Black.otf</string>
+		<string>SVN-Gotham Bold Italic.otf</string>
+		<string>SVN-Gotham Bold.otf</string>
+		<string>SVN-Gotham Book Italic.otf</string>
+		<string>SVN-Gotham Book.otf</string>
+		<string>SVN-Gotham Italic.otf</string>
+		<string>SVN-Gotham Light Italic.otf</string>
+		<string>SVN-Gotham Light.otf</string>
+		<string>SVN-Gotham Regular.otf</string>
+		<string>SVN-Gotham Thin Italic.otf</string>
+		<string>SVN-Gotham Thin.otf</string>
+		<string>SVN-Gotham Ultra Italic.otf</string>
+		<string>SVN-Gotham Ultra.otf</string>
+		<string>SVN-Gotham XLight Italic.otf</string>
+		<string>SVN-Gotham XLight.otf</string>
+		<string>SVN-Gotham Bold.ttf</string>
+		<string>SVN-Gotham Light.ttf</string>
+		<string>SVN-Cookies.ttf</string>
+	</array>
 </dict>
 </plist>

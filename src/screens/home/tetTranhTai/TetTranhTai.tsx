@@ -47,14 +47,17 @@ const TetTranhTai: React.FC<LiXiVangProps> = ({ route, navigation }) => {
           <Image
             style={styles.btn}
             source={{ uri: data?.btn_thu_tai_ban_vit }}
+            resizeMode="cover"
           />
           <Image
             style={styles.btn}
             source={{ uri: data?.btn_anh_hung_sieu_bao_ve }}
+            resizeMode="cover"
           />
           <Image
             style={styles.btn}
             source={{ uri: data?.btn_thanh_anh_kim }}
+            resizeMode="cover"
           />
         </View>
 

@@ -11,6 +11,25 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		AD82A0178AB048CDA6EE6AC0 /* SVN-Gotham Black Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32908369CDD14A7193011CCF /* SVN-Gotham Black Italic.otf */; };
+		C7DD5D3D109D48408E6446F1 /* SVN-Gotham Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = E761F2E350FF4DE3AEFF5C59 /* SVN-Gotham Black.otf */; };
+		8B76C2A4633B4D0A89A331A1 /* SVN-Gotham Bold Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = D08A280D5BC54EA9AF28D7B5 /* SVN-Gotham Bold Italic.otf */; };
+		1DE99614D9BB4CB68BA4C6F0 /* SVN-Gotham Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E5B84995E7774D47AD4F2683 /* SVN-Gotham Bold.otf */; };
+		3AB261B40A184198B998A022 /* SVN-Gotham Book Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8F0CFF4E8C2747A69A5A090C /* SVN-Gotham Book Italic.otf */; };
+		6A4B0C7FD26F43579C9DC98B /* SVN-Gotham Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9D23C8DAF29E40FA99EEF1B8 /* SVN-Gotham Book.otf */; };
+		111A5BDD3D974AFF8DE6B38D /* SVN-Gotham Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = B9643017E3324821BFB09523 /* SVN-Gotham Italic.otf */; };
+		AE28348D84F44F3692EEB2E7 /* SVN-Gotham Light Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7A827B8C26CD41D8AC59C97E /* SVN-Gotham Light Italic.otf */; };
+		3ED970FF479D442CA85DF181 /* SVN-Gotham Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 32D31E30EE5F408BA1183006 /* SVN-Gotham Light.otf */; };
+		657356748FB54573A690AFBE /* SVN-Gotham Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 77742394B35E4144AD8F43FE /* SVN-Gotham Regular.otf */; };
+		078535A5FF304E2AB1DF27F9 /* SVN-Gotham Thin Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21B9E11422BB482591976DFE /* SVN-Gotham Thin Italic.otf */; };
+		AEBD5229C3A2492B98466B58 /* SVN-Gotham Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 81531B30AC924F80A9422650 /* SVN-Gotham Thin.otf */; };
+		A9300DC37B904BD8BA0F04AD /* SVN-Gotham Ultra Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C0082751BC5643D0B91867A6 /* SVN-Gotham Ultra Italic.otf */; };
+		6115738922C341FD81AF2F88 /* SVN-Gotham Ultra.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9265501ACBD84C01B85E6909 /* SVN-Gotham Ultra.otf */; };
+		57D0C6DD5ED14E44892EB562 /* SVN-Gotham XLight Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = EF20D7EEEEC743CC9C04BEFD /* SVN-Gotham XLight Italic.otf */; };
+		80D7167C1536426DAE975770 /* SVN-Gotham XLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = D4E655D458074F2C845B70D8 /* SVN-Gotham XLight.otf */; };
+		F7BB6D144F1E4358B981DAC0 /* SVN-Gotham Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF1643B0838C43F5AB8E5161 /* SVN-Gotham Bold.ttf */; };
+		30015944D36348E0986B5CF9 /* SVN-Gotham Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2C638FE0D2C4ED1841FBF4B /* SVN-Gotham Light.ttf */; };
+		DE127D6580CF4422A05F7B8F /* SVN-Cookies.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB8F9C896F1B403D8FE3E96B /* SVN-Cookies.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +54,25 @@
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Tranfer/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Tranfer/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		32908369CDD14A7193011CCF /* SVN-Gotham Black Italic.otf */ = {isa = PBXFileReference; name = "SVN-Gotham Black Italic.otf"; path = "../assets/fonts/SVN-Gotham Black Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E761F2E350FF4DE3AEFF5C59 /* SVN-Gotham Black.otf */ = {isa = PBXFileReference; name = "SVN-Gotham Black.otf"; path = "../assets/fonts/SVN-Gotham Black.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D08A280D5BC54EA9AF28D7B5 /* SVN-Gotham Bold Italic.otf */ = {isa = PBXFileReference; name = "SVN-Gotham Bold Italic.otf"; path = "../assets/fonts/SVN-Gotham Bold Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E5B84995E7774D47AD4F2683 /* SVN-Gotham Bold.otf */ = {isa = PBXFileReference; name = "SVN-Gotham Bold.otf"; path = "../assets/fonts/SVN-Gotham Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8F0CFF4E8C2747A69A5A090C /* SVN-Gotham Book Italic.otf */ = {isa = PBXFileReference; name = "SVN-Gotham Book Italic.otf"; path = "../assets/fonts/SVN-Gotham Book Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9D23C8DAF29E40FA99EEF1B8 /* SVN-Gotham Book.otf */ = {isa = PBXFileReference; name = "SVN-Gotham Book.otf"; path = "../assets/fonts/SVN-Gotham Book.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B9643017E3324821BFB09523 /* SVN-Gotham Italic.otf */ = {isa = PBXFileReference; name = "SVN-Gotham Italic.otf"; path = "../assets/fonts/SVN-Gotham Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7A827B8C26CD41D8AC59C97E /* SVN-Gotham Light Italic.otf */ = {isa = PBXFileReference; name = "SVN-Gotham Light Italic.otf"; path = "../assets/fonts/SVN-Gotham Light Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		32D31E30EE5F408BA1183006 /* SVN-Gotham Light.otf */ = {isa = PBXFileReference; name = "SVN-Gotham Light.otf"; path = "../assets/fonts/SVN-Gotham Light.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		77742394B35E4144AD8F43FE /* SVN-Gotham Regular.otf */ = {isa = PBXFileReference; name = "SVN-Gotham Regular.otf"; path = "../assets/fonts/SVN-Gotham Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		21B9E11422BB482591976DFE /* SVN-Gotham Thin Italic.otf */ = {isa = PBXFileReference; name = "SVN-Gotham Thin Italic.otf"; path = "../assets/fonts/SVN-Gotham Thin Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		81531B30AC924F80A9422650 /* SVN-Gotham Thin.otf */ = {isa = PBXFileReference; name = "SVN-Gotham Thin.otf"; path = "../assets/fonts/SVN-Gotham Thin.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C0082751BC5643D0B91867A6 /* SVN-Gotham Ultra Italic.otf */ = {isa = PBXFileReference; name = "SVN-Gotham Ultra Italic.otf"; path = "../assets/fonts/SVN-Gotham Ultra Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9265501ACBD84C01B85E6909 /* SVN-Gotham Ultra.otf */ = {isa = PBXFileReference; name = "SVN-Gotham Ultra.otf"; path = "../assets/fonts/SVN-Gotham Ultra.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EF20D7EEEEC743CC9C04BEFD /* SVN-Gotham XLight Italic.otf */ = {isa = PBXFileReference; name = "SVN-Gotham XLight Italic.otf"; path = "../assets/fonts/SVN-Gotham XLight Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D4E655D458074F2C845B70D8 /* SVN-Gotham XLight.otf */ = {isa = PBXFileReference; name = "SVN-Gotham XLight.otf"; path = "../assets/fonts/SVN-Gotham XLight.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DF1643B0838C43F5AB8E5161 /* SVN-Gotham Bold.ttf */ = {isa = PBXFileReference; name = "SVN-Gotham Bold.ttf"; path = "../assets/fonts/SVN-Gotham Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E2C638FE0D2C4ED1841FBF4B /* SVN-Gotham Light.ttf */ = {isa = PBXFileReference; name = "SVN-Gotham Light.ttf"; path = "../assets/fonts/SVN-Gotham Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BB8F9C896F1B403D8FE3E96B /* SVN-Cookies.ttf */ = {isa = PBXFileReference; name = "SVN-Cookies.ttf"; path = "../assets/fonts/SVN-Cookies.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +131,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				5615ED1A1F3B4EAEB175D468 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -115,6 +154,33 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		5615ED1A1F3B4EAEB175D468 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				32908369CDD14A7193011CCF /* SVN-Gotham Black Italic.otf */,
+				E761F2E350FF4DE3AEFF5C59 /* SVN-Gotham Black.otf */,
+				D08A280D5BC54EA9AF28D7B5 /* SVN-Gotham Bold Italic.otf */,
+				E5B84995E7774D47AD4F2683 /* SVN-Gotham Bold.otf */,
+				8F0CFF4E8C2747A69A5A090C /* SVN-Gotham Book Italic.otf */,
+				9D23C8DAF29E40FA99EEF1B8 /* SVN-Gotham Book.otf */,
+				B9643017E3324821BFB09523 /* SVN-Gotham Italic.otf */,
+				7A827B8C26CD41D8AC59C97E /* SVN-Gotham Light Italic.otf */,
+				32D31E30EE5F408BA1183006 /* SVN-Gotham Light.otf */,
+				77742394B35E4144AD8F43FE /* SVN-Gotham Regular.otf */,
+				21B9E11422BB482591976DFE /* SVN-Gotham Thin Italic.otf */,
+				81531B30AC924F80A9422650 /* SVN-Gotham Thin.otf */,
+				C0082751BC5643D0B91867A6 /* SVN-Gotham Ultra Italic.otf */,
+				9265501ACBD84C01B85E6909 /* SVN-Gotham Ultra.otf */,
+				EF20D7EEEEC743CC9C04BEFD /* SVN-Gotham XLight Italic.otf */,
+				D4E655D458074F2C845B70D8 /* SVN-Gotham XLight.otf */,
+				DF1643B0838C43F5AB8E5161 /* SVN-Gotham Bold.ttf */,
+				E2C638FE0D2C4ED1841FBF4B /* SVN-Gotham Light.ttf */,
+				BB8F9C896F1B403D8FE3E96B /* SVN-Cookies.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -185,6 +251,25 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				AD82A0178AB048CDA6EE6AC0 /* SVN-Gotham Black Italic.otf in Resources */,
+				C7DD5D3D109D48408E6446F1 /* SVN-Gotham Black.otf in Resources */,
+				8B76C2A4633B4D0A89A331A1 /* SVN-Gotham Bold Italic.otf in Resources */,
+				1DE99614D9BB4CB68BA4C6F0 /* SVN-Gotham Bold.otf in Resources */,
+				3AB261B40A184198B998A022 /* SVN-Gotham Book Italic.otf in Resources */,
+				6A4B0C7FD26F43579C9DC98B /* SVN-Gotham Book.otf in Resources */,
+				111A5BDD3D974AFF8DE6B38D /* SVN-Gotham Italic.otf in Resources */,
+				AE28348D84F44F3692EEB2E7 /* SVN-Gotham Light Italic.otf in Resources */,
+				3ED970FF479D442CA85DF181 /* SVN-Gotham Light.otf in Resources */,
+				657356748FB54573A690AFBE /* SVN-Gotham Regular.otf in Resources */,
+				078535A5FF304E2AB1DF27F9 /* SVN-Gotham Thin Italic.otf in Resources */,
+				AEBD5229C3A2492B98466B58 /* SVN-Gotham Thin.otf in Resources */,
+				A9300DC37B904BD8BA0F04AD /* SVN-Gotham Ultra Italic.otf in Resources */,
+				6115738922C341FD81AF2F88 /* SVN-Gotham Ultra.otf in Resources */,
+				57D0C6DD5ED14E44892EB562 /* SVN-Gotham XLight Italic.otf in Resources */,
+				80D7167C1536426DAE975770 /* SVN-Gotham XLight.otf in Resources */,
+				F7BB6D144F1E4358B981DAC0 /* SVN-Gotham Bold.ttf in Resources */,
+				30015944D36348E0986B5CF9 /* SVN-Gotham Light.ttf in Resources */,
+				DE127D6580CF4422A05F7B8F /* SVN-Cookies.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

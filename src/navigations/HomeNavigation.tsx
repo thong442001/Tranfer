@@ -12,12 +12,18 @@ import KhoLoc from '../screens/home/khoLoc/KhoLoc';
 import LiXiVang from '../screens/home/liXiVang/LiXiVang';
 import HomeThanhLiXi from '../screens/home/homeThanhLiXi/HomeThanhLiXi';
 import TetTranhTai from '../screens/home/tetTranhTai/TetTranhTai';
+import ThanhLiXi1 from '../screens/home/thanhLiXi1/ThanhLiXi1';
+import ThanhLiXi2 from '../screens/home/thanhLiXi2/ThanhLiXi2';
+import ThanhLiXi3 from '../screens/home/thanhLiXi3/ThanhLiXi3';
 
 // Định nghĩa kiểu dữ liệu cho Stack
 export type LiXiVangRoutes = {
   LiXiVang: undefined;
   HomeThanhLiXi: undefined;
   TetTranhTai: undefined;
+  ThanhLiXi1: undefined;
+  ThanhLiXi2: undefined;
+  ThanhLiXi3: undefined;
 };
 
 // Định nghĩa kiểu dữ liệu cho `oStackHome`
@@ -25,6 +31,9 @@ const oLiXiVang: Record<keyof LiXiVangRoutes, { name: keyof LiXiVangRoutes; comp
   LiXiVang: { name: 'LiXiVang', component: LiXiVang },
   HomeThanhLiXi: { name: 'HomeThanhLiXi', component: HomeThanhLiXi },
   TetTranhTai: { name: 'TetTranhTai', component: TetTranhTai },
+  ThanhLiXi1: { name: 'ThanhLiXi1', component: ThanhLiXi1 },
+  ThanhLiXi2: { name: 'ThanhLiXi2', component: ThanhLiXi2 },
+  ThanhLiXi3: { name: 'ThanhLiXi3', component: ThanhLiXi3 },
 };
 
 // Tạo Stack Navigator
@@ -121,6 +130,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
+    fontFamily: 'SVN-Cookies',
     fontSize: 14,
     color: '#B30D00',
     fontWeight: 'bold',

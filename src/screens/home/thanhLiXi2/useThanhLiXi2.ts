@@ -3,35 +3,39 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackRoutes } from '../../../navigations/HomeNavigation';
 import firestore from '@react-native-firebase/firestore';
 
-type UseLiXiVangProps = NativeStackScreenProps<StackRoutes, 'TabHome'>;
+type UseThanhLiXi2Props = NativeStackScreenProps<StackRoutes, 'TabHome'>;
 
 // Định nghĩa kiểu dữ liệu cho state `data`
-interface DaiHoTranhTaiData {
+interface ThanhLiXi2Data {
+  avt?: string;
   btn_back?: string;
   backGround?: string;
-  btn_thanh_li_xi?: string;
-  btn_sieu_thi_phu_kien?: string;
+  note?: string;
 }
 
-export const useHomeThanhLiXi = ({ route, navigation }: UseLiXiVangProps) => {
+export const useThanhLiXi2 = ({ route, navigation }: UseThanhLiXi2Props) => {
   const { params } = route;
 
-  const [data, setData] = useState<DaiHoTranhTaiData | null>(null);
+  const [data, setData] = useState<ThanhLiXi2Data | null>(null);
 
   // Firebase collection reference
-  const fb = firestore().collection('Tranfer-PageHomeThanhLiXi');
+  const fb = firestore().collection('Tranfer-PageThanhLiXi2');
 
   useEffect(() => {
-    const unsubscribe = fb.onSnapshot(querySnapshot => {
+    const unsubscribe = fb.limit(1).onSnapshot(querySnapshot => {
       querySnapshot.forEach(doc => {
         setData({
+          avt: doc.data()?.avt,
           btn_back: doc.data()?.btn_back,
           backGround: doc.data()?.backGround,
-          btn_thanh_li_xi: doc.data()?.btn_thanh_li_xi,
-          btn_sieu_thi_phu_kien: doc.data()?.btn_sieu_thi_phu_kien,
+          note: doc.data()?.note,
         });
       });
     });
+
+    const timeout = setTimeout(() => {
+      toThanhLiXi3()
+    }, 3000);
 
     return () => unsubscribe(); // Cleanup để tránh memory leak
   }, []);
@@ -40,15 +44,14 @@ export const useHomeThanhLiXi = ({ route, navigation }: UseLiXiVangProps) => {
     navigation.goBack();
   };
 
-  const toThanhLiXi1 = () => {
+  const toThanhLiXi3 = () => {
     navigation.getParent()?.navigate("LiXiVangHomeNavigation", {
-      screen: "ThanhLiXi1",
+      screen: "ThanhLiXi3",
     });
   };
 
   return {
     data,
     handleBack,
-    toThanhLiXi1,
   };
 };

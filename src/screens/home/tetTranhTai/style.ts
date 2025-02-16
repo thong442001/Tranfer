@@ -27,8 +27,9 @@ export const styles = StyleSheet.create({
         fontWeight: '600',
     },
     btn: {
-        width: 200,
-        height: 50
+        width: 245,
+        height: 44,
+        borderRadius: 20,
     },
     wrapper: {
         justifyContent: 'space-between',

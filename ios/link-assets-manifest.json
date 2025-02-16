@@ -1,0 +1,81 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/SVN-Cookies.ttf",
+      "sha1": "f587a09caed6c4ba0a9110c41ac9e70fa74a1d78"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Black Italic.otf",
+      "sha1": "4512009502f67c9d809b7ffdf370295afa34a148"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Black.otf",
+      "sha1": "c700e068eef55537aa5de0fc2bc35a879e5552e4"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Bold Italic.otf",
+      "sha1": "6aaf5af8763dc4d226ed995414d35c75b72e4bcb"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Bold.otf",
+      "sha1": "18eb7e80892ef1c17223c023350c15c3448344be"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Bold.ttf",
+      "sha1": "4f427ca99a6b00287c5ad0efb8a58c23e51ca3ac"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Book Italic.otf",
+      "sha1": "7ed5c567cf58933a4572b069f6fc81bfc9bd580e"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Book.otf",
+      "sha1": "4f6d71debe2089938ac3d84b48843206642d1c74"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Italic.otf",
+      "sha1": "d38d3e28935e43caa4e38ea9d4ece48dbfee1944"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Light Italic.otf",
+      "sha1": "dd3648740bd2a9101322e732c2834a4cc65e3669"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Light.otf",
+      "sha1": "06a407f61f5bd634f3dee6073ddfb651ef335138"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Light.ttf",
+      "sha1": "ff056b4a91392c752c0ec05bfd37a9e3e9ba717c"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Regular.otf",
+      "sha1": "1bb5dca8ccfc09f1368dd584d237cbcc0ce1e764"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Thin Italic.otf",
+      "sha1": "406936cff5a7fdd696f2bac4c0c0e74cad8350dc"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Thin.otf",
+      "sha1": "d3236e29cab032a01631de37a2c49beacd47acfd"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Ultra Italic.otf",
+      "sha1": "6ed622497a33f6261ff82a719aaf42f5c87996db"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham Ultra.otf",
+      "sha1": "9c52f8b2c82274dfe740bbc99281c05a87a223a7"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham XLight Italic.otf",
+      "sha1": "db5116653fbad114730891ccd308285c697d5d14"
+    },
+    {
+      "path": "assets/fonts/SVN-Gotham XLight.otf",
+      "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    }
+  ]
+}

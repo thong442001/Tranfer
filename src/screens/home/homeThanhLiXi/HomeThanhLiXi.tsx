@@ -22,6 +22,7 @@ const HomeThanhLiXi: React.FC<HomeThanhLiXiProps> = ({ route, navigation }) => {
   const {
     data,
     handleBack,
+    toThanhLiXi1,
   } = useHomeThanhLiXi({ route, navigation });
 
   return (
@@ -45,8 +46,17 @@ const HomeThanhLiXi: React.FC<HomeThanhLiXiProps> = ({ route, navigation }) => {
 
         <View style={styles.wrapper}>
           <Text style={styles.txt}>Bạn đang có <Text style={styles.quantity}>11</Text > lì xì </Text>
-          <Image style={styles.btn} source={{ uri: data?.btn_thanh_li_xi }} />
-          <Image style={styles.btn} source={{ uri: data?.btn_sieu_thi_phu_kien }} />
+          <TouchableOpacity
+            onPress={toThanhLiXi1}
+          >
+            <Image style={styles.btn} source={{ uri: data?.btn_thanh_li_xi }} />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+          //onPress={toThanhLiXi1}
+          >
+            <Image style={styles.btn} source={{ uri: data?.btn_sieu_thi_phu_kien }} />
+          </TouchableOpacity>
         </View>
 
       </ImageBackground>

@@ -3,12 +3,24 @@ import { StyleSheet, Dimensions } from "react-native";
 export const styles = StyleSheet.create({
     background: {
         flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 15,
     },
-    btnBack: {
-        width: 60,
-        height: 50,
-        marginTop: 65,
-        marginLeft: 20
+    background_3btn: {
+        width: 335,
+        height: 52,
+        flexDirection: 'row',
+        padding: 5,
+        gap: 0,
+    },
+    background_phu: {
+        width: 335,
+        height: 551,
+    },
+    logo_Vinh_Tuong: {
+        width: 105,
+        height: 32,
     },
     quantity: {
         color: 'brown',
@@ -37,5 +49,18 @@ export const styles = StyleSheet.create({
         marginTop: Dimensions.get('window').height * 0.24,
         marginLeft: Dimensions.get('window').width * 0.18,
         position: 'absolute',
-    }
+    },
+    btnTab: {
+        paddingHorizontal: 10,
+        borderRadius: 5,
+        width: '33%',
+        justifyContent: 'center',
+    },
+    txtBtn: {
+        fontFamily: 'SVN-Cookies',
+        fontSize: 14,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: '#B30D00',
+    },
 });
