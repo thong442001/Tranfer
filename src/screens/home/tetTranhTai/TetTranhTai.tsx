@@ -22,6 +22,9 @@ const TetTranhTai: React.FC<LiXiVangProps> = ({ route, navigation }) => {
   const {
     data,
     handleBack,
+    toThuTaiBanVit,
+    toAnhHungSieuBaoVe,
+    toThanhAnhKim
   } = useTetTranhTai({ route, navigation });
 
   return (
@@ -44,21 +47,36 @@ const TetTranhTai: React.FC<LiXiVangProps> = ({ route, navigation }) => {
         </TouchableOpacity>
 
         <View style={styles.wrapper}>
-          <Image
-            style={styles.btn}
-            source={{ uri: data?.btn_thu_tai_ban_vit }}
-            resizeMode="cover"
-          />
-          <Image
-            style={styles.btn}
-            source={{ uri: data?.btn_anh_hung_sieu_bao_ve }}
-            resizeMode="cover"
-          />
-          <Image
-            style={styles.btn}
-            source={{ uri: data?.btn_thanh_anh_kim }}
-            resizeMode="cover"
-          />
+          <TouchableOpacity
+            onPress={toThuTaiBanVit}
+          >
+            <Image
+              style={styles.btn}
+              source={{ uri: data?.btn_thu_tai_ban_vit }}
+              resizeMode="cover"
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={toAnhHungSieuBaoVe}
+          >
+            <Image
+              style={styles.btn}
+              source={{ uri: data?.btn_anh_hung_sieu_bao_ve }}
+              resizeMode="cover"
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={toThanhAnhKim}
+          >
+            <Image
+              style={styles.btn}
+              source={{ uri: data?.btn_thanh_anh_kim }}
+              resizeMode="cover"
+            />
+          </TouchableOpacity>
+
         </View>
 
       </ImageBackground>

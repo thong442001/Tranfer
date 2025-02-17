@@ -3,25 +3,25 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackRoutes } from '../../../navigations/HomeNavigation';
 import firestore from '@react-native-firebase/firestore';
 
-type UseThanhLiXi1Props = NativeStackScreenProps<StackRoutes, 'TabHome'>;
+type UseThanhLiXi4Props = NativeStackScreenProps<StackRoutes, 'TabHome'>;
 
 // Định nghĩa kiểu dữ liệu cho state `data`
-interface ThanhLiXi1Data {
+interface ThanhLiXi4Data {
   title?: string;
   btn_back?: string;
   backGround_phu?: string;
-  btn_tim_doi_thu?: string;
-  img_chinh?: string;
-  note?: string;
+  btn_chia_se?: string;
+  btn_nhan_loc?: string;
+  logo_vinh_tuong?: string;
 }
 
-export const useThanhLiXi1 = ({ route, navigation }: UseThanhLiXi1Props) => {
+export const useThanhLiXi4 = ({ route, navigation }: UseThanhLiXi4Props) => {
   const { params } = route;
 
-  const [data, setData] = useState<ThanhLiXi1Data | null>(null);
+  const [data, setData] = useState<ThanhLiXi4Data | null>(null);
 
   // Firebase collection reference
-  const fb = firestore().collection('Tranfer-PageThanhLiXi1');
+  const fb = firestore().collection('Tranfer-PageThanhLiXi4');
 
   useEffect(() => {
     const unsubscribe = fb.limit(1).onSnapshot(querySnapshot => {
@@ -30,9 +30,9 @@ export const useThanhLiXi1 = ({ route, navigation }: UseThanhLiXi1Props) => {
           title: doc.data()?.title,
           btn_back: doc.data()?.btn_back,
           backGround_phu: doc.data()?.backGround_phu,
-          btn_tim_doi_thu: doc.data()?.btn_tim_doi_thu,
-          img_chinh: doc.data()?.img_chinh,
-          note: doc.data()?.note,
+          btn_chia_se: doc.data()?.btn_chia_se,
+          btn_nhan_loc: doc.data()?.btn_nhan_loc,
+          logo_vinh_tuong: doc.data()?.logo_vinh_tuong,
         });
       });
     });
@@ -46,15 +46,9 @@ export const useThanhLiXi1 = ({ route, navigation }: UseThanhLiXi1Props) => {
     });
   };
 
-  const toThanhLiXi2 = () => {
-    navigation.getParent()?.navigate("LiXiVangHomeNavigation", {
-      screen: "ThanhLiXi2",
-    });
-  };
 
   return {
     data,
     handleBack,
-    toThanhLiXi2
   };
 };

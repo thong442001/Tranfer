@@ -10,11 +10,16 @@ import LacLocVang from '../screens/home/lacLocVang/LacLocVang';
 import KhoLoc from '../screens/home/khoLoc/KhoLoc';
 
 import LiXiVang from '../screens/home/liXiVang/LiXiVang';
-import HomeThanhLiXi from '../screens/home/homeThanhLiXi/HomeThanhLiXi';
 import TetTranhTai from '../screens/home/tetTranhTai/TetTranhTai';
+import HomeThanhLiXi from '../screens/home/homeThanhLiXi/HomeThanhLiXi';
+
 import ThanhLiXi1 from '../screens/home/thanhLiXi1/ThanhLiXi1';
 import ThanhLiXi2 from '../screens/home/thanhLiXi2/ThanhLiXi2';
 import ThanhLiXi3 from '../screens/home/thanhLiXi3/ThanhLiXi3';
+import ThanhLiXi4 from '../screens/home/thanhLiXi4/ThanhLiXi4';
+
+import TetTranhTaiTimDoiThu from '../screens/home/tetTranhTaiTimDoiThu/TetTranhTaiTimDoiThu';
+import TetTranhTaiInGame from '../screens/home/tetTranhTaiInGame/TetTranhTaiInGame';
 
 // Định nghĩa kiểu dữ liệu cho Stack
 export type LiXiVangRoutes = {
@@ -24,6 +29,9 @@ export type LiXiVangRoutes = {
   ThanhLiXi1: undefined;
   ThanhLiXi2: undefined;
   ThanhLiXi3: undefined;
+  ThanhLiXi4: undefined;
+  TetTranhTaiTimDoiThu: { game: string };
+  TetTranhTaiInGame: undefined;
 };
 
 // Định nghĩa kiểu dữ liệu cho `oStackHome`
@@ -34,6 +42,9 @@ const oLiXiVang: Record<keyof LiXiVangRoutes, { name: keyof LiXiVangRoutes; comp
   ThanhLiXi1: { name: 'ThanhLiXi1', component: ThanhLiXi1 },
   ThanhLiXi2: { name: 'ThanhLiXi2', component: ThanhLiXi2 },
   ThanhLiXi3: { name: 'ThanhLiXi3', component: ThanhLiXi3 },
+  ThanhLiXi4: { name: 'ThanhLiXi4', component: ThanhLiXi4 },
+  TetTranhTaiTimDoiThu: { name: 'TetTranhTaiTimDoiThu', component: TetTranhTaiTimDoiThu },
+  TetTranhTaiInGame: { name: 'TetTranhTaiInGame', component: TetTranhTaiInGame },
 };
 
 // Tạo Stack Navigator

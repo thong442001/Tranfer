@@ -48,15 +48,15 @@ export const useThanhLiXi3 = ({ route, navigation }: UseThanhLiXi3Props) => {
     });
   };
 
-  const toThanhLiXi2 = () => {
+  const toThanhLiXi4 = () => {
     navigation.getParent()?.navigate("LiXiVangHomeNavigation", {
-      screen: "ThanhLiXi2",
+      screen: "ThanhLiXi4",
     });
   };
 
   return {
     data,
     handleBack,
-    toThanhLiXi2
+    toThanhLiXi4
   };
 };

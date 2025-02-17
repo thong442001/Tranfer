@@ -28,8 +28,8 @@ export const styles = StyleSheet.create({
         fontFamily: 'SVN-Gotham',
     },
     img_chinh: {
-        width: 400,
-        height: 400,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height * 0.4,
         alignItems: "center",
         margin: 20,
     },

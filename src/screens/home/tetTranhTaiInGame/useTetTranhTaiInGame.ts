@@ -3,24 +3,26 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackRoutes } from '../../../navigations/HomeNavigation';
 import firestore from '@react-native-firebase/firestore';
 
-type UseLiXiVangProps = NativeStackScreenProps<StackRoutes, 'TabHome'>;
+type UseTetTranhTaiInGameProps = NativeStackScreenProps<StackRoutes, 'TabHome'>;
 
 // Định nghĩa kiểu dữ liệu cho state `data`
-interface DaiHoTranhTaiData {
+interface TetTranhTaiInGameData {
   btn_back?: string;
   backGround?: string;
-  btn_thu_tai_ban_vit?: string;
-  btn_anh_hung_sieu_bao_ve?: string;
-  btn_thanh_anh_kim?: string;
+  backGround1?: string;
+  backGround2?: string;
+  avt1?: string;
+  avt2?: string;
+  img_vs?: string;
 }
 
-export const useTetTranhTai = ({ route, navigation }: UseLiXiVangProps) => {
+export const useTetTranhTaiInGame = ({ route, navigation }: UseTetTranhTaiInGameProps) => {
   const { params } = route;
 
-  const [data, setData] = useState<DaiHoTranhTaiData | null>(null);
+  const [data, setData] = useState<TetTranhTaiInGameData | null>(null);
 
   // Firebase collection reference
-  const fb = firestore().collection('Tranfer-PageTetTranhTai');
+  const fb = firestore().collection('Tranfer-PageTetTranhTaiInGame');
 
   useEffect(() => {
     const unsubscribe = fb.onSnapshot(querySnapshot => {
@@ -28,9 +30,11 @@ export const useTetTranhTai = ({ route, navigation }: UseLiXiVangProps) => {
         setData({
           btn_back: doc.data()?.btn_back,
           backGround: doc.data()?.backGround,
-          btn_thu_tai_ban_vit: doc.data()?.btn_thu_tai_ban_vit,
-          btn_anh_hung_sieu_bao_ve: doc.data()?.btn_anh_hung_sieu_bao_ve,
-          btn_thanh_anh_kim: doc.data()?.btn_thanh_anh_kim,
+          backGround1: doc.data()?.backGround1,
+          backGround2: doc.data()?.backGround2,
+          avt1: doc.data()?.avt1,
+          avt2: doc.data()?.avt2,
+          img_vs: doc.data()?.img_vs,
         });
       });
     });

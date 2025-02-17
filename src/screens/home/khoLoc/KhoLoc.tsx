@@ -27,79 +27,81 @@ const KhoLoc: React.FC<KhoLocProps> = ({ route, navigation }) => {
 
   return (
     <>
-      <StatusBar translucent backgroundColor="transparent" />
-      <ImageBackground
-        source={{ uri: data?.backGround }}
-        style={styles.background}
-        resizeMode="cover"
-      >
-        <LgTxtYellow
-          title={data?.title}
-          size={24}
-          height={33}
-        />
-        <Image
-          style={styles.logo_Vinh_Tuong}
-          source={{ uri: data?.logo_Vinh_Tuong }}
-        />
-        {/* Tab */}
+      <SafeAreaView style={styles.container}>
+        <StatusBar translucent backgroundColor="transparent" />
         <ImageBackground
-          source={{ uri: data?.backGround_phu }}
-          style={styles.background_3btn}
+          source={{ uri: data?.backGround }}
+          style={styles.background}
           resizeMode='cover'
         >
-          <TouchableOpacity
-            style={[
-              styles.btnTab,
-              isShaken == 1 && { backgroundColor: '#B30D00' }]}
-            onPress={() => setIsShaken(1)}
+          <LgTxtYellow
+            title={data?.title}
+            size={24}
+            height={33}
+          />
+          <Image
+            style={styles.logo_Vinh_Tuong}
+            source={{ uri: data?.logo_Vinh_Tuong }}
+          />
+          {/* Tab */}
+          <ImageBackground
+            source={{ uri: data?.backGround_phu }}
+            style={styles.background_3btn}
+            resizeMode='cover'
           >
-            <Text
+            <TouchableOpacity
               style={[
-                styles.txtBtn,
-                isShaken == 1 && { color: '#ffff' }]}
-            >Lắc lộc vàng</Text>
-          </TouchableOpacity>
+                styles.btnTab,
+                isShaken == 1 && { backgroundColor: '#B30D00' }]}
+              onPress={() => setIsShaken(1)}
+            >
+              <Text
+                style={[
+                  styles.txtBtn,
+                  isShaken == 1 && { color: '#ffff' }]}
+              >Lắc lộc vàng</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={[
-              styles.btnTab,
-              isShaken == 2 && { backgroundColor: '#B30D00' }]}
-            onPress={() => setIsShaken(2)}
+            <TouchableOpacity
+              style={[
+                styles.btnTab,
+                isShaken == 2 && { backgroundColor: '#B30D00' }]}
+              onPress={() => setIsShaken(2)}
+            >
+              <Text
+                style={[
+                  styles.txtBtn,
+                  isShaken == 2 && { color: '#ffff' }]}
+              >Lì xì vàng</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                styles.btnTab,
+                isShaken == 3 && { backgroundColor: '#B30D00' }]}
+              onPress={() => setIsShaken(3)}
+            >
+              <Text
+                style={[
+                  styles.txtBtn,
+                  isShaken == 3 && { color: '#ffff' }]}
+                numberOfLines={2}
+              >{`Mã số\nmay mắn`}</Text>
+            </TouchableOpacity>
+
+          </ImageBackground>
+
+          {/* kho đồ */}
+          <ImageBackground
+            source={{ uri: data?.backGround_phu }}
+            style={styles.background_phu}
+            resizeMode='contain'
           >
-            <Text
-              style={[
-                styles.txtBtn,
-                isShaken == 2 && { color: '#ffff' }]}
-            >Lì xì vàng</Text>
-          </TouchableOpacity>
 
-          <TouchableOpacity
-            style={[
-              styles.btnTab,
-              isShaken == 3 && { backgroundColor: '#B30D00' }]}
-            onPress={() => setIsShaken(3)}
-          >
-            <Text
-              style={[
-                styles.txtBtn,
-                isShaken == 3 && { color: '#ffff' }]}
-              numberOfLines={2}
-            >{`Mã số\nmay mắn`}</Text>
-          </TouchableOpacity>
+          </ImageBackground>
 
-        </ImageBackground>
-
-        {/* kho đồ */}
-        <ImageBackground
-          source={{ uri: data?.backGround_phu }}
-          style={styles.background_phu}
-          resizeMode='contain'
-        >
-
-        </ImageBackground>
-
-      </ImageBackground >
+        </ImageBackground >
+      </SafeAreaView>
     </>
   );
 };

@@ -37,7 +37,9 @@ export const useHomeThanhLiXi = ({ route, navigation }: UseLiXiVangProps) => {
   }, []);
 
   const handleBack = () => {
-    navigation.goBack();
+    navigation.getParent()?.navigate("LiXiVangHomeNavigation", {
+      screen: "LiXiVang",
+    });
   };
 
   const toThanhLiXi1 = () => {

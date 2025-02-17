@@ -6,7 +6,11 @@ interface BtnBorderProps {
     size: number;
     height: number,
 }
-const LgTxtYellow: React.FC<BtnBorderProps> = ({ title, size, height }) => {
+const LgTxtYellow: React.FC<BtnBorderProps> = ({
+    title,
+    size,
+    height
+}) => {
     // Chia các dòng bằng cách sử dụng "\n"
     const lines = title?.split('\n');
 

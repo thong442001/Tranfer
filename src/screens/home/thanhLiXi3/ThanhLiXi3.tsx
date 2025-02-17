@@ -22,7 +22,7 @@ const ThanhLiXi3: React.FC<ThanhLiXi3Props> = ({ route, navigation }) => {
   const {
     data,
     handleBack,
-    toThanhLiXi2
+    toThanhLiXi4
   } = useThanhLiXi3({ route, navigation });
 
   return (
@@ -109,7 +109,7 @@ const ThanhLiXi3: React.FC<ThanhLiXi3Props> = ({ route, navigation }) => {
         </View>
 
         <TouchableOpacity
-          //onPress={toThanhLiXi1}
+          onPress={toThanhLiXi4}
           style={styles.vBtnChoi}
         >
           <Image
@@ -118,7 +118,7 @@ const ThanhLiXi3: React.FC<ThanhLiXi3Props> = ({ route, navigation }) => {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          //onPress={toThanhLiXi1}
+          onPress={handleBack}
           style={styles.vBtnHuy}
         >
           <Image

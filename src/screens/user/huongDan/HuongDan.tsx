@@ -9,7 +9,7 @@ import {
   Image,
 } from 'react-native'
 import { styles } from "./style";
-
+import DialogXinChao from "../../../components/dialog/xinChao/DialogXinChao";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackRoutes } from '../../../navigations/HomeNavigation';
 import { useHuongDan } from './useHuongDan';  // Import hook useLogin
@@ -24,6 +24,9 @@ const HuongDan: React.FC<LoginProps> = ({ route, navigation }) => {
     setBtnTron,
     handle,
     handle1,
+    dialogXinChaoData,
+    visible,
+    setVisible,
   } = useHuongDan({ route, navigation });
 
   return (
@@ -66,7 +69,7 @@ const HuongDan: React.FC<LoginProps> = ({ route, navigation }) => {
         <ImageBackground
           source={{ uri: data?.img_chinh }}
           style={styles.img_chinh}
-          resizeMode='contain'
+          resizeMode='cover'
         >
           {/* 4 btn tron */}
           <View
@@ -141,8 +144,15 @@ const HuongDan: React.FC<LoginProps> = ({ route, navigation }) => {
           />
         </TouchableOpacity>
 
-      </ImageBackground>
+        {/* dialog */}
+        <DialogXinChao
+          visible={visible}
+          uriBackGround={dialogXinChaoData?.backGround}
+          uriBtnConfim={dialogXinChaoData?.btn_confirm}
+          onConfirm={() => setVisible(false)}
+        />
 
+      </ImageBackground>
     </SafeAreaView>
   );
 };

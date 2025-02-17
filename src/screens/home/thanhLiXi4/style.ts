@@ -21,51 +21,50 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    background_phu: {
-        width: Dimensions.get('window').width * 0.95,
-        height: Dimensions.get('window').height * 0.75,
-        borderRadius: 50,
-        alignItems: 'center',
-        paddingVertical: 10,
-        gap: 20,
+    logo_vinh_tuong: {
+        width: 210,
+        height: 60,
+        marginTop: -10,
     },
-    title1: {
-        color: '#C2030B',
-        fontSize: 20,
-        fontWeight: '600',
-        fontFamily: 'SVN-Gotham Bold',
+    backGround_phu: {
+        width: 335,
+        height: 530,
+        marginTop: 30,
     },
-    vTxt_phu: {
+    vContent: {
         width: '100%',
-        height: 75,
+        alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.2)',
-        gap: 5,
-        paddingHorizontal: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+        gap: 10,
     },
     title_phu: {
         color: '#C2030B',
         fontSize: 16,
-        fontWeight: '600',
+        fontWeight: '700',
         fontFamily: 'SVN-Gotham Bold',
+        textAlign: 'center',
     },
     content_title_phu: {
         color: '#333333',
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: '400',
         fontFamily: 'SVN-Gotham',
+        textAlign: 'center',
     },
-
-    img_chinh: {
-        width: 303,
-        height: 204
+    btn_chiaSe_nhanLoc: {
+        width: 136,
+        height: 44,
     },
-    btn: {
-        width: 153,
-        height: 44
+    vBtnChiaSe: {
+        position: 'absolute',
+        alignSelf: 'center',
+        bottom: 85,
     },
-    note: {
-        width: 294,
-        height: 78
-    }
+    vBtnNhanLoc: {
+        position: 'absolute',
+        alignSelf: 'center',
+        bottom: 30,
+    },
 });
