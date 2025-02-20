@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -7,15 +7,19 @@ import {
   StatusBar,
   ImageBackground,
   Image,
+  Alert,
 } from 'react-native';
 import { styles } from "./style";
-
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StackRoutes } from '../../../navigations/HomeNavigation';
+import { LiXiVangRoutes } from '../../../navigations/HomeNavigation';
 import { useTetTranhTaiInGame } from './useTetTranhTaiInGame';  // Import hook useLogin
-
+import GameThuTaiBanVit from "../../../components/gameThuTaiBanVit/GameThuTaiBanVit";
+import GameAnhHungSieuBaoVe from "../../../components/gameAnhHungSieuBaoVe/GameAnhHungSieuBaoVe";
+import GameThanhAnhKim from "../../../components/gameThanhAnhKim/GameThanhAnhKim";
 // Định nghĩa kiểu props cho màn hình Login
-type TetTranhTaiInGameProps = NativeStackScreenProps<StackRoutes, 'TabHome'>;
+type TetTranhTaiInGameProps = NativeStackScreenProps<LiXiVangRoutes, 'TetTranhTaiInGame'>;
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
 
 const TetTranhTaiInGame: React.FC<TetTranhTaiInGameProps> = ({
   route,
@@ -27,8 +31,25 @@ const TetTranhTaiInGame: React.FC<TetTranhTaiInGameProps> = ({
     handleBack,
     toThuTaiBanVit,
     toAnhHungSieuBaoVe,
-    toThanhAnhKim
+    toThanhAnhKim,
+    score,
+    setScore,
+    score2,
+    setScore2,
+    handleTimeEnd,
   } = useTetTranhTaiInGame({ route, navigation });
+
+  // Kiểm soát việc render game
+  const [isGameActive, setIsGameActive] = useState(true);
+
+  useFocusEffect(
+    useCallback(() => {
+      setIsGameActive(true); // Khi vào lại, bật game
+      setScore(0);
+      // setScore2(0);
+      return () => setIsGameActive(false); // Khi back, tắt game
+    }, [])
+  );
 
   return (
     <>
@@ -65,8 +86,7 @@ const TetTranhTaiInGame: React.FC<TetTranhTaiInGameProps> = ({
               />
               <Text
                 style={styles.diem1}
-              >115
-              </Text>
+              >{score}</Text>
             </ImageBackground>
             <Text
               style={styles.name}
@@ -93,7 +113,7 @@ const TetTranhTaiInGame: React.FC<TetTranhTaiInGameProps> = ({
               />
               <Text
                 style={styles.diem2}
-              >115
+              >{score2}
               </Text>
             </ImageBackground>
             <Text
@@ -101,8 +121,38 @@ const TetTranhTaiInGame: React.FC<TetTranhTaiInGameProps> = ({
             >Nguyễn Lương Kiên Hào
             </Text>
           </View>
-
         </View >
+
+        <Text
+          style={styles.titleGame}
+        >{data?.title}</Text>
+
+        {/* Chỉ render game khi isGameActive = true */}
+        {
+          isGameActive
+          && (
+            data?.title == 'THỬ TÀI BẮN VÍT'
+              ? (
+                <GameThuTaiBanVit
+                  score={score}
+                  setScore={setScore}
+                  onTimeEnd={handleTimeEnd}
+                />
+              ) : (data?.title == 'THÁNH ÁNH KIM')
+                ? (
+                  <GameThanhAnhKim
+                    score={score}
+                    setScore={setScore}
+                    onTimeEnd={handleTimeEnd}
+                  />
+                ) : (
+                  <GameAnhHungSieuBaoVe
+                    score={score}
+                    setScore={setScore}
+                    onTimeEnd={handleTimeEnd}
+                  />
+                )
+          )}
 
       </ImageBackground >
     </>

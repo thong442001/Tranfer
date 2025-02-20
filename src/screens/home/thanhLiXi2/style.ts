@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     },
     vTime: {
         position: 'absolute',
-        top: 470,
+        bottom: 280,
         alignSelf: 'center',
     },
     note: {

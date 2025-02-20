@@ -56,7 +56,8 @@ export const useTetTranhTaiTimDoiThu = ({ route, navigation }: UseTetTranhTaiTim
   };
 
   const toTetTranhTaiInGame = () => {
-    navigation.navigate('TetTranhTaiInGame')
+    navigation.navigate("TetTranhTaiInGame",
+      { game: params.game });
   };
 
   return {

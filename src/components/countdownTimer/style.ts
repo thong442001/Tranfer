@@ -2,13 +2,14 @@ import { StyleSheet, Dimensions } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
+        flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        marginVertical: 20,
     },
     timerText: {
-        fontSize: 24,
+        fontSize: 13,
         fontWeight: "bold",
         color: "#FFD700",
+        textAlign: "center",
     },
 });

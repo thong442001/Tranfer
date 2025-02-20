@@ -18,8 +18,11 @@ export const styles = StyleSheet.create({
     vInform: {
         flexDirection: 'row',
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height * 0.3,
-        padding: 20,
+        height: Dimensions.get('window').height * 0.13,
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        //backgroundColor: 'blue',
     },
     img_vs: {
         width: 69,
@@ -65,5 +68,38 @@ export const styles = StyleSheet.create({
         fontWeight: '400',
         fontFamily: 'SVN-Cookies',
         textAlign: 'center',
+    },
+    // game
+    drill: {
+        width: 100,
+        height: 100,
+        marginBottom: 20,
+    },
+    screwWrapper: {
+        position: 'absolute',
+        top: 200,
+    },
+    screw: {
+        width: 30,
+        height: 30,
+    },
+    button: {
+        backgroundColor: 'gold',
+        padding: 15,
+        borderRadius: 10,
+        marginTop: 20,
+    },
+    buttonText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#D32F2F',
+    },
+    titleGame: {
+        color: '#FFFFFF',
+        fontSize: 21,
+        fontWeight: '700',
+        fontFamily: 'SVN-Gotham bold',
+        textAlign: 'center',
+        margin: 10,
     },
 });

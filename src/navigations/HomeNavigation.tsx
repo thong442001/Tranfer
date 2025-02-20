@@ -31,7 +31,7 @@ export type LiXiVangRoutes = {
   ThanhLiXi3: undefined;
   ThanhLiXi4: undefined;
   TetTranhTaiTimDoiThu: { game: string };
-  TetTranhTaiInGame: undefined;
+  TetTranhTaiInGame: { game: string };
 };
 
 // Định nghĩa kiểu dữ liệu cho `oStackHome`

@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StackRoutes } from '../../../navigations/HomeNavigation';
+import { LiXiVangRoutes } from '../../../navigations/HomeNavigation';
 import firestore from '@react-native-firebase/firestore';
+import {
+  Alert,
+} from 'react-native';
 
-type UseTetTranhTaiInGameProps = NativeStackScreenProps<StackRoutes, 'TabHome'>;
+type UseTetTranhTaiInGameProps = NativeStackScreenProps<LiXiVangRoutes, 'TetTranhTaiInGame'>;
 
 // Định nghĩa kiểu dữ liệu cho state `data`
 interface TetTranhTaiInGameData {
@@ -14,17 +17,29 @@ interface TetTranhTaiInGameData {
   avt1?: string;
   avt2?: string;
   img_vs?: string;
+  title?: string;
 }
 
 export const useTetTranhTaiInGame = ({ route, navigation }: UseTetTranhTaiInGameProps) => {
-  const { params } = route;
+  const { params } = route as { params: { game: string } };
 
   const [data, setData] = useState<TetTranhTaiInGameData | null>(null);
+  const [score, setScore] = useState<number>(0);
+  const [score2, setScore2] = useState<number>(115);
 
   // Firebase collection reference
   const fb = firestore().collection('Tranfer-PageTetTranhTaiInGame');
 
   useEffect(() => {
+    let title = ''
+    if (params.game == 'ThuTaiBanVit') {
+      title = 'THỬ TÀI BẮN VÍT'
+    } else if (params.game == 'ThanhAnhKim') {
+      title = 'THÁNH ÁNH KIM'
+    } else {
+      title = 'Anh Hùng Siêu Bảo Vệ'
+    }
+
     const unsubscribe = fb.onSnapshot(querySnapshot => {
       querySnapshot.forEach(doc => {
         setData({
@@ -35,6 +50,7 @@ export const useTetTranhTaiInGame = ({ route, navigation }: UseTetTranhTaiInGame
           avt1: doc.data()?.avt1,
           avt2: doc.data()?.avt2,
           img_vs: doc.data()?.img_vs,
+          title: title,
         });
       });
     });
@@ -44,7 +60,7 @@ export const useTetTranhTaiInGame = ({ route, navigation }: UseTetTranhTaiInGame
 
   const handleBack = () => {
     navigation.getParent()?.navigate("LiXiVangHomeNavigation", {
-      screen: "LiXiVang",
+      screen: "TetTranhTai",
     });
   };
 
@@ -69,11 +85,33 @@ export const useTetTranhTaiInGame = ({ route, navigation }: UseTetTranhTaiInGame
     });
   };
 
+  const handleTimeEnd = () => {
+    if (score > score2) {
+      Alert.alert("Thắng", `Bạn đã ghi được ${score} điểm`, [
+        { text: "OK", onPress: () => handleBack() }
+      ]);
+    } else if (score == score2) {
+      Alert.alert("Hòa", `Bạn đã ghi được ${score} điểm`, [
+        { text: "OK", onPress: () => handleBack() }
+      ]);
+    } else {
+      Alert.alert("Thua", `Bạn đã ghi được ${score} điểm`, [
+        { text: "OK", onPress: () => handleBack() }
+      ]);
+    }
+
+  };
+
   return {
     data,
     handleBack,
     toThuTaiBanVit,
     toAnhHungSieuBaoVe,
-    toThanhAnhKim
+    toThanhAnhKim,
+    score,
+    setScore,
+    score2,
+    setScore2,
+    handleTimeEnd,
   };
 };

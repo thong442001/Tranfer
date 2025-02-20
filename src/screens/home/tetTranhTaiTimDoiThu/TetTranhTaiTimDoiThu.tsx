@@ -16,7 +16,10 @@ import { useTetTranhTaiTimDoiThu } from './useTetTranhTaiTimDoiThu';  // Import 
 // Định nghĩa kiểu props cho màn hình Login
 type ThanhLiXi1Props = NativeStackScreenProps<LiXiVangRoutes, 'TetTranhTaiTimDoiThu'>;
 
-const TetTranhTaiTimDoiThu: React.FC<ThanhLiXi1Props> = ({ route, navigation }) => {
+const TetTranhTaiTimDoiThu: React.FC<ThanhLiXi1Props> = ({
+  route,
+  navigation
+}) => {
 
   const {
     data,

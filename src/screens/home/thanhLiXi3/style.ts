@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
     vTime: {
         position: 'absolute',
         alignSelf: 'center',
-        bottom: 235,
+        bottom: 245,
     },
     vBtnChoi: {
         position: 'absolute',

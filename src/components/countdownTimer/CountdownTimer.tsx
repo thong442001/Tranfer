@@ -1,20 +1,22 @@
-import React from "react";
-import { View, Text } from "react-native";
-import { styles } from "./style";
+import React from 'react';
+import { View, Text } from 'react-native';
 import { useCountdownTimer } from './useCountdownTimer';
+import { styles } from "./style";
 
-const CountdownTimer = ({ initialSeconds = 15 }) => {
-    const {
-        seconds,
-        setSeconds,
-    } = useCountdownTimer({ initialSeconds });
+interface CountdownTimerProps {
+    initialSeconds?: number;
+    onTimeEnd?: () => void;
+}
 
+const CountdownTimer: React.FC<CountdownTimerProps> = ({ initialSeconds = 180, onTimeEnd }) => {
+    const { seconds } = useCountdownTimer({ initialSeconds, onTimeEnd });
+
+    const formatTime = (time: number): string => String(time).padStart(2, '0');
 
     return (
         <View style={styles.container}>
             <Text style={styles.timerText}>
-                {String(Math.floor(seconds / 60)).padStart(2, "0")}:
-                {String(seconds % 60).padStart(2, "0")}
+                {formatTime(Math.floor(seconds / 60))}:{formatTime(seconds % 60)}
             </Text>
         </View>
     );
