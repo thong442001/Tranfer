@@ -29,9 +29,6 @@ const TetTranhTaiInGame: React.FC<TetTranhTaiInGameProps> = ({
   const {
     data,
     handleBack,
-    toThuTaiBanVit,
-    toAnhHungSieuBaoVe,
-    toThanhAnhKim,
     score,
     setScore,
     score2,

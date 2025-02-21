@@ -64,39 +64,25 @@ export const useTetTranhTaiInGame = ({ route, navigation }: UseTetTranhTaiInGame
     });
   };
 
-  const toThuTaiBanVit = () => {
+  const toBangXepHang = () => {
     navigation.getParent()?.navigate("LiXiVangHomeNavigation", {
-      screen: "TetTranhTaiTimDoiThu",
-      params: { game: 'ThuTaiBanVit' }
+      screen: "BangXepHang",
     });
   };
 
-  const toAnhHungSieuBaoVe = () => {
-    navigation.getParent()?.navigate("LiXiVangHomeNavigation", {
-      screen: "TetTranhTaiTimDoiThu",
-      params: { game: 'AnhHungSieuBaove' }// v viết thường vì collection trên fb lở viết thường
-    });
-  };
-
-  const toThanhAnhKim = () => {
-    navigation.getParent()?.navigate("LiXiVangHomeNavigation", {
-      screen: "TetTranhTaiTimDoiThu",
-      params: { game: 'ThanhAnhKim' }
-    });
-  };
 
   const handleTimeEnd = () => {
     if (score > score2) {
       Alert.alert("Thắng", `Bạn đã ghi được ${score} điểm`, [
-        { text: "OK", onPress: () => handleBack() }
+        { text: "OK", onPress: () => toBangXepHang() }
       ]);
     } else if (score == score2) {
       Alert.alert("Hòa", `Bạn đã ghi được ${score} điểm`, [
-        { text: "OK", onPress: () => handleBack() }
+        { text: "OK", onPress: () => toBangXepHang() }
       ]);
     } else {
       Alert.alert("Thua", `Bạn đã ghi được ${score} điểm`, [
-        { text: "OK", onPress: () => handleBack() }
+        { text: "OK", onPress: () => toBangXepHang() }
       ]);
     }
 
@@ -105,9 +91,6 @@ export const useTetTranhTaiInGame = ({ route, navigation }: UseTetTranhTaiInGame
   return {
     data,
     handleBack,
-    toThuTaiBanVit,
-    toAnhHungSieuBaoVe,
-    toThanhAnhKim,
     score,
     setScore,
     score2,

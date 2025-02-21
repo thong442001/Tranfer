@@ -27,17 +27,17 @@ export const useGameThuTaiBanVit = (
   const [isTimeUp, setIsTimeUp] = useState(false);
 
   useEffect(() => {
-    // Lấy dữ liệu từ Firebase một lần
-    const fetchData = async () => {
-      const snapshot = await firestore()
-        .collection('Tranfer-PageGameThuTaiBanVit')
-        .get();
-      snapshot.forEach(doc => {
-        setData(doc.data() as GameData);
-      });
-    };
     fetchData();
   }, []);
+  // Lấy dữ liệu từ Firebase một lần
+  const fetchData = async () => {
+    const snapshot = await firestore()
+      .collection('Tranfer-PageGameThuTaiBanVit')
+      .get();
+    snapshot.forEach(doc => {
+      setData(doc.data() as GameData);
+    });
+  };
 
   // Lấy danh sách ảnh vít từ Firebase (lọc `undefined`)
   const screwImages = [

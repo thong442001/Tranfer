@@ -20,6 +20,7 @@ import ThanhLiXi4 from '../screens/home/thanhLiXi4/ThanhLiXi4';
 
 import TetTranhTaiTimDoiThu from '../screens/home/tetTranhTaiTimDoiThu/TetTranhTaiTimDoiThu';
 import TetTranhTaiInGame from '../screens/home/tetTranhTaiInGame/TetTranhTaiInGame';
+import BangXepHang from '../screens/home/bangXepHang/BangXepHang';
 
 // Định nghĩa kiểu dữ liệu cho Stack
 export type LiXiVangRoutes = {
@@ -32,6 +33,7 @@ export type LiXiVangRoutes = {
   ThanhLiXi4: undefined;
   TetTranhTaiTimDoiThu: { game: string };
   TetTranhTaiInGame: { game: string };
+  BangXepHang: undefined;
 };
 
 // Định nghĩa kiểu dữ liệu cho `oStackHome`
@@ -45,6 +47,7 @@ const oLiXiVang: Record<keyof LiXiVangRoutes, { name: keyof LiXiVangRoutes; comp
   ThanhLiXi4: { name: 'ThanhLiXi4', component: ThanhLiXi4 },
   TetTranhTaiTimDoiThu: { name: 'TetTranhTaiTimDoiThu', component: TetTranhTaiTimDoiThu },
   TetTranhTaiInGame: { name: 'TetTranhTaiInGame', component: TetTranhTaiInGame },
+  BangXepHang: { name: 'BangXepHang', component: BangXepHang },
 };
 
 // Tạo Stack Navigator
