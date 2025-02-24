@@ -21,7 +21,8 @@ const ThanhLiXi2: React.FC<ThanhLiXi2Props> = ({ route, navigation }) => {
 
   const {
     data,
-    handleBack,
+    user,
+    handleLeaveMatch,
   } = useThanhLiXi2({ route, navigation });
 
   return (
@@ -34,7 +35,7 @@ const ThanhLiXi2: React.FC<ThanhLiXi2Props> = ({ route, navigation }) => {
       >
         <TouchableOpacity
           //activeOpacity={1}
-          onPress={handleBack}
+          onPress={handleLeaveMatch}
           style={styles.vBack}
         >
           <Image
@@ -58,7 +59,7 @@ const ThanhLiXi2: React.FC<ThanhLiXi2Props> = ({ route, navigation }) => {
           style={styles.vName}
         >
           <LgTxtYellow
-            title={"Nguyễn Trần\nNgọc Hân"}
+            title={user?.name}
             size={16}
             height={60}
           />

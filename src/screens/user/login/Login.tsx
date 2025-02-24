@@ -23,14 +23,16 @@ const Login: React.FC<LoginProps> = ({ route, navigation }) => {
     handleGoogleLogin
   } = useLogin({ route, navigation });
 
-
-
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={styles.container}
+    >
       <View>
         <View>
-          <Button title="Đăng nhập Google"
-            onPress={handleGoogleLogin} />
+          <Button
+            title="Đăng nhập Google"
+            onPress={handleGoogleLogin}
+          />
         </View>
       </View>
     </SafeAreaView>

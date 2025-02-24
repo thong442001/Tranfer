@@ -21,6 +21,7 @@ const LacLocVang: React.FC<LacLocVangProps> = ({ route, navigation }) => {
 
   const {
     data,
+    luot_lac,
     isShaken,
     setIsShaken,
     handleBack,
@@ -51,7 +52,7 @@ const LacLocVang: React.FC<LacLocVangProps> = ({ route, navigation }) => {
         />
 
         <View style={styles.wrapper}>
-          <Text style={styles.txt}>Bạn có <Text style={styles.quantity}>10</Text> lượt lắc</Text>
+          <Text style={styles.txt}>Bạn có <Text style={styles.quantity}>{luot_lac}</Text> lượt lắc</Text>
 
           <TouchableOpacity onPress={() => setIsShaken(true)}>
             <Image style={styles.btn}

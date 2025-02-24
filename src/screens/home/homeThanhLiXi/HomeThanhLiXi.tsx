@@ -9,7 +9,6 @@ import {
   Image,
 } from 'react-native';
 import { styles } from "./style";
-
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackRoutes } from '../../../navigations/HomeNavigation';
 import { useHomeThanhLiXi } from './useHomeThanhLiXi';  // Import hook useLogin
@@ -21,6 +20,7 @@ const HomeThanhLiXi: React.FC<HomeThanhLiXiProps> = ({ route, navigation }) => {
 
   const {
     data,
+    lixi,
     handleBack,
     toThanhLiXi1,
   } = useHomeThanhLiXi({ route, navigation });
@@ -45,7 +45,7 @@ const HomeThanhLiXi: React.FC<HomeThanhLiXiProps> = ({ route, navigation }) => {
         </TouchableOpacity>
 
         <View style={styles.wrapper}>
-          <Text style={styles.txt}>Bạn đang có <Text style={styles.quantity}>11</Text > lì xì </Text>
+          <Text style={styles.txt}>Bạn đang có <Text style={styles.quantity}>{lixi}</Text > lì xì </Text>
           <TouchableOpacity
             onPress={toThanhLiXi1}
           >

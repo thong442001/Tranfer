@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { LiXiVangRoutes } from '../../../navigations/HomeNavigation';
 import firestore from '@react-native-firebase/firestore';
-
+import database from '@react-native-firebase/database';
+import { useSelector } from 'react-redux';
 type UseTetTranhTaiTimDoiThuProps = NativeStackScreenProps<LiXiVangRoutes, 'TetTranhTaiTimDoiThu'>;
 
 // Định nghĩa kiểu dữ liệu cho state `data`
@@ -24,6 +25,7 @@ export const useTetTranhTaiTimDoiThu = ({ route, navigation }: UseTetTranhTaiTim
 
 
   const [data, setData] = useState<TetTranhTaiTimDoiThuData | null>(null);
+  const user = useSelector((state: any) => state.app.user);
 
   //const game = params?.game ?? "defaultGame"; // Nếu `params` không tồn tại, dùng giá trị mặc định
   //const params = route.params!; // Dùng `!` để nói với TypeScript rằng `params` chắc chắn có giá trị
@@ -47,11 +49,56 @@ export const useTetTranhTaiTimDoiThu = ({ route, navigation }: UseTetTranhTaiTim
         });
       });
     });
-
+    // Chỉ gọi findOpponent khi user.uid có giá trị hợp lệ
+    if (user && user.uid) {
+      findOpponent(user.uid);
+    }
     return () => unsubscribe(); // Cleanup để tránh memory leak
   }, []);
 
+
+  const findOpponent = async (userId: string) => {
+    const queueRef = database().ref('matchmaking');
+
+    // Tìm người chơi đang đợi
+    const snapshot = await queueRef.once('value');
+    let opponentId: string | null = null;
+
+    snapshot.forEach((child) => {
+      if (child.val().uid !== userId) {
+        opponentId = child.val().uid;
+        return true; // Dừng vòng lặp khi tìm thấy đối thủ
+      }
+    });
+
+    if (opponentId) {
+      // Nếu có đối thủ, tạo phòng đấu
+      const matchId = database().ref('matches').push().key;
+      await database().ref(`matches/${matchId}`).set({
+        player1: userId,
+        player2: opponentId,
+        status: 'playing',
+      });
+
+      // Xóa cả hai khỏi hàng chờ
+      await queueRef.child(userId).remove();
+      await queueRef.child(opponentId).remove();
+
+      return matchId; // Trả về matchId để điều hướng
+    } else {
+      // Nếu không có ai, đưa user vào hàng chờ
+      await queueRef.child(userId).set({ uid: userId, status: 'waiting' });
+      return null;
+    }
+  };
+
+  const cancelMatchmaking = async (userId: string) => {
+    await database().ref(`matchmaking/${userId}`).remove();
+  };
+
+
   const handleBack = () => {
+    cancelMatchmaking(user.uid)
     navigation.navigate('TetTranhTai')
   };
 

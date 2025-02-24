@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StackRoutes } from '../../../navigations/HomeNavigation';
+import { LiXiVangRoutes } from '../../../navigations/HomeNavigation';
 import firestore from '@react-native-firebase/firestore';
 
-type UseThanhLiXi3Props = NativeStackScreenProps<StackRoutes, 'TabHome'>;
+type UseThanhLiXi3Props = NativeStackScreenProps<LiXiVangRoutes, 'ThanhLiXi3'>;
 
 // Định nghĩa kiểu dữ liệu cho state `data`
 interface ThanhLiXi3Data {
@@ -17,8 +17,9 @@ interface ThanhLiXi3Data {
 }
 
 export const useThanhLiXi3 = ({ route, navigation }: UseThanhLiXi3Props) => {
-  const { params } = route;
+  const { params } = route as { params: { roomId: string } };
 
+  console.log(params.roomId);
   const [data, setData] = useState<ThanhLiXi3Data | null>(null);
 
   // Firebase collection reference

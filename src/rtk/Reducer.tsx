@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 //import { PostInforUser } from "./API";
 
 interface AppState {
-    user: string;
+    user: any;
 }
 
 const initialState: AppState = {
-    user: '',
+    user: null,
 };
 
 const appSlice = createSlice({
@@ -15,9 +15,10 @@ const appSlice = createSlice({
     reducers: { // chạy trong app
         login: (state, action) => {
             state.user = action.payload;
+            console.log(state.user);
         },
         logout: (state) => {
-            state.user = '';
+            state.user = null;
         },
     },
     extraReducers: (builder) => {

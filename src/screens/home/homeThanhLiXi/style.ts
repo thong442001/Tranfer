@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     txt: {
         color: 'white',
         fontSize: 20,
-        marginLeft: 20,
+        //marginLeft: 0,
         fontWeight: '600',
     },
     btn: {

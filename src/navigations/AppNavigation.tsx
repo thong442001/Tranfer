@@ -12,7 +12,7 @@ const AppNavigation: React.FC = () => {
   return (
     <NavigationContainer>
       {
-        user != '' ? <HomeNavigation /> : <UserNavigation />
+        user != null ? <HomeNavigation /> : <UserNavigation />
       }
     </NavigationContainer>
   );
