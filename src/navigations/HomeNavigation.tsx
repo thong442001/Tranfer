@@ -13,6 +13,7 @@ import LiXiVang from '../screens/home/liXiVang/LiXiVang';
 import TetTranhTai from '../screens/home/tetTranhTai/TetTranhTai';
 import HomeThanhLiXi from '../screens/home/homeThanhLiXi/HomeThanhLiXi';
 
+import SieuThiPhuKien from '../screens/home/sieuThiPhuKien/SieuThiPhuKien';
 import ThanhLiXi1 from '../screens/home/thanhLiXi1/ThanhLiXi1';
 import ThanhLiXi2 from '../screens/home/thanhLiXi2/ThanhLiXi2';
 import ThanhLiXi3 from '../screens/home/thanhLiXi3/ThanhLiXi3';
@@ -27,9 +28,10 @@ export type LiXiVangRoutes = {
   LiXiVang: undefined;
   HomeThanhLiXi: undefined;
   TetTranhTai: undefined;
+  SieuThiPhuKien: undefined;
   ThanhLiXi1: undefined;
-  ThanhLiXi2: undefined;
-  ThanhLiXi3: { roomId: string };
+  ThanhLiXi2: { game: string };
+  ThanhLiXi3: { game: string, roomId: string };
   ThanhLiXi4: undefined;
   TetTranhTaiTimDoiThu: { game: string };
   TetTranhTaiInGame: { game: string };
@@ -42,6 +44,7 @@ const oLiXiVang: Record<keyof LiXiVangRoutes, { name: keyof LiXiVangRoutes; comp
   HomeThanhLiXi: { name: 'HomeThanhLiXi', component: HomeThanhLiXi },
   TetTranhTai: { name: 'TetTranhTai', component: TetTranhTai },
   ThanhLiXi1: { name: 'ThanhLiXi1', component: ThanhLiXi1 },
+  SieuThiPhuKien: { name: 'SieuThiPhuKien', component: SieuThiPhuKien },
   ThanhLiXi2: { name: 'ThanhLiXi2', component: ThanhLiXi2 },
   ThanhLiXi3: { name: 'ThanhLiXi3', component: ThanhLiXi3 },
   ThanhLiXi4: { name: 'ThanhLiXi4', component: ThanhLiXi4 },

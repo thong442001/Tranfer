@@ -15,7 +15,15 @@ interface LacLocVangData {
   btnLac10Luot?: string;
   imgPerson?: string;
 }
-
+interface Gift {
+  id: string;
+  name: string;
+  cost: number;
+  stock: number;
+  img: string;
+  backGround: string;
+  backGround_kho: string;
+}
 export const useLacLocVang = ({ route, navigation }: UseLacLocVangProps) => {
   const { params } = route;
 
@@ -23,6 +31,15 @@ export const useLacLocVang = ({ route, navigation }: UseLacLocVangProps) => {
   const [isShaken, setIsShaken] = useState<boolean>(false);
   const user = useSelector((state: any) => state.app.user);
   const [luot_lac, setLuot_lac] = useState<number>(0);
+
+  const [gifts, setGifts] = useState<Gift[]>([]);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [visible10, setVisible10] = useState<boolean>(false);
+  // 🆕 State lưu quà được random
+  const [selectedGift, setSelectedGift] = useState<Gift[]>([]); // Lưu danh sách 10 quà
+  const [msmmData, setMsmmData] = useState<Gift | null>(null);
+
+  const [index, setindex] = useState<number>(0);
 
   // Firebase collection reference
   const fb = firestore().collection('Tranfer-PageLacLocVang');
@@ -44,7 +61,32 @@ export const useLacLocVang = ({ route, navigation }: UseLacLocVangProps) => {
     if (user && user.uid) {
       getLuot_lac(user.uid);
     }
-    return () => unsubscribe(); // Cleanup để tránh memory leak
+
+    // Lấy danh sách quà từ Firebase
+    const giftsRef = database().ref("/Tranfer-gifts-Lac-Loc-Vang");
+
+    const onDataChange = (snapshot: any) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        const giftArray = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key],
+        }));
+        setGifts(giftArray);
+        // 🆕 Tìm "msmm" và lưu vào state
+        const msmmGift = giftArray.find(gift => gift.id === "msmm");
+        if (msmmGift) {
+          setMsmmData(msmmGift);
+        }
+      }
+    };
+
+    giftsRef.on("value", onDataChange);
+
+    return () => {
+      giftsRef.off("value", onDataChange);
+      unsubscribe(); // Cleanup để tránh memory leak
+    }
   }, [user?.uid]);
 
   const getLuot_lac = async (uid: string) => {
@@ -69,7 +111,133 @@ export const useLacLocVang = ({ route, navigation }: UseLacLocVangProps) => {
     }
   };
 
+  // Hàm random quà 1
+  const shakeOnce = async () => {
+    if (!user?.uid || gifts.length === 0 || luot_lac <= 0) return;
+
+    // Lọc danh sách quà bỏ qua "msmm"
+    const validGifts = gifts.filter(gift => gift.id !== "msmm");
+    if (validGifts.length === 0) return;
+
+    const randomGift = validGifts[Math.floor(Math.random() * validGifts.length)];
+
+    // Đường dẫn đến kho quà của user
+    const userGiftRef = database().ref(`/Tranfer-users/${user.uid}/kho/${randomGift.id}`);
+    const userLuotLacRef = database().ref(`/Tranfer-users/${user.uid}/luot_lac`);
+
+    try {
+      // Cập nhật quà vào kho
+      const snapshot = await userGiftRef.once("value");
+
+      if (snapshot.exists()) {
+        const currentStock = snapshot.val().stock || 0;
+        await userGiftRef.update({ stock: currentStock + 1 });
+      } else {
+        await userGiftRef.set({
+          ...randomGift,
+          stock: 1,
+          status: "Chưa nhận",
+        });
+      }
+
+      // Cập nhật mã số may mắn (msmm)
+      const userMsmmRef = database().ref(`/Tranfer-users/${user.uid}/kho/msmm`);
+      const msmmSnapshot = await userMsmmRef.once("value");
+
+      if (msmmSnapshot.exists()) {
+        const currentStock = msmmSnapshot.val().stock || 0;
+        await userMsmmRef.update({ stock: currentStock + 1 });
+      } else {
+        await userMsmmRef.set({
+          ...msmmData,
+          stock: 1,
+          status: "Chưa nhận",
+        });
+      }
+
+      // Trừ 1 lượt lắc
+      await userLuotLacRef.transaction(currentLuot => (currentLuot || 0) > 0 ? currentLuot - 1 : 0);
+
+      // Cập nhật lại state
+      setLuot_lac(prev => Math.max(prev - 1, 0));
+
+      // ✅ Lưu quà vào state để hiển thị UI (danh sách 1 quà)
+      setSelectedGift([randomGift]); // 🆕 Lưu vào mảng thay vì 1 object
+
+    } catch (error) {
+      console.error("Lỗi khi cập nhật quà hoặc trừ lượt lắc:", error);
+    }
+  };
+
+
+  const shakeTenTimes = async () => {
+    if (!user?.uid || gifts.length === 0 || luot_lac < 10) return;
+
+    const userGiftRef = database().ref(`/Tranfer-users/${user.uid}/kho`);
+    const userLuotLacRef = database().ref(`/Tranfer-users/${user.uid}/luot_lac`);
+
+    try {
+      let newGifts: Gift[] = []; // Mảng chứa 10 quà lắc được
+
+      for (let i = 0; i < 10; i++) {
+        // Lọc danh sách quà bỏ qua "msmm"
+        const validGifts = gifts.filter(gift => gift.id !== "msmm");
+        if (validGifts.length === 0) continue;
+
+        const randomGift = validGifts[Math.floor(Math.random() * validGifts.length)];
+        newGifts.push(randomGift);
+
+        // Cập nhật quà vào kho người dùng
+        const giftRef = userGiftRef.child(randomGift.id);
+        const snapshot = await giftRef.once("value");
+
+        if (snapshot.exists()) {
+          const currentStock = snapshot.val().stock || 0;
+          await giftRef.update({ stock: currentStock + 1 });
+        } else {
+          await giftRef.set({
+            ...randomGift,
+            stock: 1,
+            status: "Chưa nhận",
+          });
+        }
+
+        // Cập nhật mã số may mắn vào kho
+        const userMsmmRef = userGiftRef.child("msmm");
+        const msmmSnapshot = await userMsmmRef.once("value");
+        if (msmmSnapshot.exists()) {
+          const currentStock = msmmSnapshot.val().stock || 0;
+          await userMsmmRef.update({ stock: currentStock + 1 });
+        } else {
+          await userMsmmRef.set({
+            ...msmmData,
+            stock: 1,
+            status: "Chưa nhận",
+          });
+        }
+      }
+
+      // Trừ 10 lượt lắc
+      await userLuotLacRef.transaction(currentLuot => (currentLuot || 0) >= 10 ? currentLuot - 10 : 0);
+
+      // Cập nhật lại state
+      setLuot_lac(prev => Math.max(prev - 10, 0));
+
+      // ✅ Lưu danh sách quà để hiển thị UI
+      setSelectedGift(newGifts);
+
+    } catch (error) {
+      console.error("Lỗi khi cập nhật quà hoặc trừ lượt lắc:", error);
+    }
+  };
+
+
   const handleBack = () => {
+    navigation.navigate("HuongDan")
+  };
+
+  const changeIndex = (n: number) => {
+    setindex(index + n);
     navigation.navigate("HuongDan")
   };
 
@@ -79,5 +247,15 @@ export const useLacLocVang = ({ route, navigation }: UseLacLocVangProps) => {
     isShaken,
     setIsShaken,
     handleBack,
+    selectedGift,  // gift random
+    msmmData, // msmm
+    shakeOnce, // Hàm lắc quà
+    visible,
+    setVisible,
+    visible10,
+    setVisible10,
+    shakeTenTimes,
+    index, // thứ tự của quà
+    setindex,
   };
 };

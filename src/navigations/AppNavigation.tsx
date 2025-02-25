@@ -8,7 +8,7 @@ import UserNavigation from './UserNavigation';
 const AppNavigation: React.FC = () => {
 
   const user = useSelector((state: any) => state.app.user);
-
+  console.log(user)
   return (
     <NavigationContainer>
       {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, ImageBackground, Image } from "react-native";
 import { styles } from "./style";
-import { useItemBangXepHang } from "./useItemBangXepHang";
+import { useItemGifts } from "./useItemGifts";
 import { View } from "moti";
 
 interface ItemData {
@@ -10,8 +10,8 @@ interface ItemData {
     lixi: number;
 }
 
-const ItemBangXepHang: React.FC<ItemData> = ({ index, name, lixi }) => {
-    const { data } = useItemBangXepHang();
+const ItemGifts: React.FC<ItemData> = ({ index, name, lixi }) => {
+    const { data } = useItemGifts();
 
     // Chọn background phù hợp với vị trí
     const backgroundUri =
@@ -50,4 +50,4 @@ const ItemBangXepHang: React.FC<ItemData> = ({ index, name, lixi }) => {
     );
 };
 
-export default ItemBangXepHang;
+export default ItemGifts;

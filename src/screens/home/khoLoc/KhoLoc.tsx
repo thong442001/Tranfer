@@ -7,6 +7,7 @@ import {
   StatusBar,
   ImageBackground,
   Image,
+  FlatList,
 } from 'react-native';
 import { styles } from "./style";
 import LgTxtYellow from "../../../components/lineGradient/LgTxtYellow";
@@ -16,14 +17,92 @@ import { useKhoLoc } from './useKhoLoc';  // Import hook useLogin
 
 // Định nghĩa kiểu props cho màn hình Login
 type KhoLocProps = NativeStackScreenProps<StackRoutes, 'TabHome'>;
-
+interface Gift {
+  id: string;
+  name: string;
+  status: string;
+  cost: number;
+  stock: number;
+  img: string;
+  backGround: string;
+  backGround_kho: string;
+}
 const KhoLoc: React.FC<KhoLocProps> = ({ route, navigation }) => {
 
   const {
     data,
     isShaken,
     setIsShaken,
+    gifts, // Trả về danh sách quà
+    unclaimedCount, // Trả về tổng số quà chưa nhận
+    updateGiftStatus,
   } = useKhoLoc({ route, navigation });
+
+  const filteredGifts = gifts.filter(gift => {
+    if (isShaken === 1) return gift.id !== "msmm"; // Bỏ msmm
+    if (isShaken === 2) return gift.name.includes("Phiếu mua hàng"); // Chỉ lấy phiếu
+    if (isShaken === 3) return gift.id === "msmm"; // Chỉ lấy msmm
+    return true;
+  });
+
+  const msmmGroups = gifts
+    .filter(gift => gift.id === "msmm") // Lọc ra chỉ những gift có id là "msmm"
+    .flatMap(gift =>
+      Array.from({ length: gift.stock }, () => ({
+        ...gift,
+        stock: 1 // Mỗi phần tử sau khi tách chỉ có stock = 1
+      }))
+    );
+
+  console.log(msmmGroups);
+
+
+
+
+
+
+  const renderGiftItem = ({ item }: { item: Gift }) => (
+    <TouchableOpacity
+      onPress={() => updateGiftStatus(item.id)}
+    >
+      <ImageBackground
+        style={styles.giftItem}
+        source={{ uri: item?.backGround_kho }}
+        resizeMode='contain'
+      >
+        <Image
+          source={{ uri: item.img }}
+          style={styles.giftImage}
+          resizeMode='contain'
+        />
+        {
+          item.id != "msmm" &&
+          <Text style={styles.giftName}>{item.name}</Text>
+        }
+        {
+          item.id != "msmm" &&
+          <Text style={styles.giftStock}>Số lượng: {item.stock}</Text>
+        }
+        <View
+          style={{
+            position: "absolute",
+            bottom: 5
+          }}
+        >
+          <Text style={styles.giftStock}>Trạng thái:</Text>
+          <Text
+            style={[
+              styles.giftStatus,
+              { color: item.status === "Chưa nhận" ? "red" : "green" },
+            ]}
+          >
+            {item.status}
+          </Text>
+        </View>
+
+      </ImageBackground>
+    </TouchableOpacity >
+  );
 
   return (
     <>
@@ -97,6 +176,32 @@ const KhoLoc: React.FC<KhoLocProps> = ({ route, navigation }) => {
             style={styles.background_phu}
             resizeMode='contain'
           >
+            {
+              isShaken != 3
+                ? (
+                  <FlatList
+                    data={filteredGifts} // Dùng danh sách đã lọc
+                    keyExtractor={(item) => item.id}
+                    renderItem={renderGiftItem}
+                    numColumns={3}
+                    contentContainerStyle={styles.listContainer}
+                  />
+                ) : (
+                  <FlatList
+                    data={msmmGroups} // Dùng danh sách đã lọc
+                    keyExtractor={(item, index) => `item-${index}`} // Tránh trùng key
+                    renderItem={renderGiftItem}
+                    numColumns={3}
+                    contentContainerStyle={styles.listContainer}
+                  />
+                )
+            }
+            <Text style={styles.unclaimedText}>
+              Tổng số quà chưa nhận thưởng là:
+              <Text
+                style={styles.unclaimedNumber}
+              > {unclaimedCount}</Text>
+            </Text>
 
           </ImageBackground>
 

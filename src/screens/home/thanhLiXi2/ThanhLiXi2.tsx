@@ -11,11 +11,11 @@ import { styles } from "./style";
 import LgTxtYellow from "../../../components/lineGradient/LgTxtYellow";
 import CountupTimer from "../../../components/countupTimer/CountupTimer";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StackRoutes } from '../../../navigations/HomeNavigation';
+import { LiXiVangRoutes } from '../../../navigations/HomeNavigation';
 import { useThanhLiXi2 } from './useThanhLiXi2';  // Import hook useLogin
 
 // Định nghĩa kiểu props cho màn hình Login
-type ThanhLiXi2Props = NativeStackScreenProps<StackRoutes, 'TabHome'>;
+type ThanhLiXi2Props = NativeStackScreenProps<LiXiVangRoutes, 'ThanhLiXi2'>;
 
 const ThanhLiXi2: React.FC<ThanhLiXi2Props> = ({ route, navigation }) => {
 
@@ -47,7 +47,7 @@ const ThanhLiXi2: React.FC<ThanhLiXi2Props> = ({ route, navigation }) => {
         <Text
           style={styles.title}
         >
-          Đáp nhanh tranh lì xì
+          {data?.game}
         </Text>
         <Text
           style={styles.content}

@@ -49,6 +49,7 @@ export const useThanhLiXi1 = ({ route, navigation }: UseThanhLiXi1Props) => {
   const toThanhLiXi2 = () => {
     navigation.getParent()?.navigate("LiXiVangHomeNavigation", {
       screen: "ThanhLiXi2",
+      params: { game: 'ThanhLiXi' }
     });
   };
 

@@ -45,6 +45,7 @@ export const useLiXiVang = ({ route, navigation }: UseLiXiVangProps) => {
   const toHomeThanhLiXi = () => {
     navigation.getParent()?.navigate("LiXiVangHomeNavigation", {
       screen: "HomeThanhLiXi",
+      //screen: "BangXepHang",
     });
   };
 

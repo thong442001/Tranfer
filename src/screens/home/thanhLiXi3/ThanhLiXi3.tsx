@@ -11,17 +11,19 @@ import { styles } from "./style";
 import LgTxtYellow from "../../../components/lineGradient/LgTxtYellow";
 import CountupTimer from "../../../components/countupTimer/CountupTimer";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StackRoutes } from '../../../navigations/HomeNavigation';
+import { LiXiVangRoutes } from '../../../navigations/HomeNavigation';
 import { useThanhLiXi3 } from './useThanhLiXi3';  // Import hook useLogin
 
 // Định nghĩa kiểu props cho màn hình Login
-type ThanhLiXi3Props = NativeStackScreenProps<StackRoutes, 'TabHome'>;
+type ThanhLiXi3Props = NativeStackScreenProps<LiXiVangRoutes, 'ThanhLiXi3'>;
 
 const ThanhLiXi3: React.FC<ThanhLiXi3Props> = ({ route, navigation }) => {
 
   const {
     data,
-    handleBack,
+    player1,
+    player2,
+    handleLeaveMatch,
     toThanhLiXi4
   } = useThanhLiXi3({ route, navigation });
 
@@ -37,7 +39,7 @@ const ThanhLiXi3: React.FC<ThanhLiXi3Props> = ({ route, navigation }) => {
           style={styles.vHeader}
         >
           <TouchableOpacity
-            onPress={handleBack}
+            onPress={handleLeaveMatch}
           >
             <Image
               source={{ uri: data?.btn_back }}
@@ -85,7 +87,7 @@ const ThanhLiXi3: React.FC<ThanhLiXi3Props> = ({ route, navigation }) => {
           />
           <Text
             style={styles.name1}
-          >{"Nguyễn Trần\nNgọc Hân"}
+          >{player1?.name}
           </Text>
         </View>
 
@@ -98,7 +100,7 @@ const ThanhLiXi3: React.FC<ThanhLiXi3Props> = ({ route, navigation }) => {
           />
           <Text
             style={styles.name2}
-          >{"B Nguyễn"}
+          >{player2?.name}
           </Text>
         </View>
 
@@ -118,7 +120,7 @@ const ThanhLiXi3: React.FC<ThanhLiXi3Props> = ({ route, navigation }) => {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={handleBack}
+          onPress={handleLeaveMatch}
           style={styles.vBtnHuy}
         >
           <Image

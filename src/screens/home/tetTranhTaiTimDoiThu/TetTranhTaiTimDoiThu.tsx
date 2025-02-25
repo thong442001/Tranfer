@@ -24,7 +24,7 @@ const TetTranhTaiTimDoiThu: React.FC<ThanhLiXi1Props> = ({
   const {
     data,
     handleBack,
-    toTetTranhTaiInGame
+    toThanhLiXi2
   } = useTetTranhTaiTimDoiThu({ route, navigation });
 
   return (
@@ -89,7 +89,7 @@ const TetTranhTaiTimDoiThu: React.FC<ThanhLiXi1Props> = ({
           />
 
           <TouchableOpacity
-            onPress={toTetTranhTaiInGame}
+            onPress={toThanhLiXi2}
           >
             <Image
               style={styles.btn_tim_doi_thu}

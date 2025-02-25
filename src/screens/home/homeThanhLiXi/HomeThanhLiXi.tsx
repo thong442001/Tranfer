@@ -23,6 +23,7 @@ const HomeThanhLiXi: React.FC<HomeThanhLiXiProps> = ({ route, navigation }) => {
     lixi,
     handleBack,
     toThanhLiXi1,
+    toSieuThiPhuKien,
   } = useHomeThanhLiXi({ route, navigation });
 
   return (
@@ -53,7 +54,7 @@ const HomeThanhLiXi: React.FC<HomeThanhLiXiProps> = ({ route, navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-          //onPress={toThanhLiXi1}
+            onPress={toSieuThiPhuKien}
           >
             <Image style={styles.btn} source={{ uri: data?.btn_sieu_thi_phu_kien }} />
           </TouchableOpacity>

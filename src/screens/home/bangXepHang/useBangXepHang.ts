@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StackRoutes } from '../../../navigations/HomeNavigation';
-import firestore from '@react-native-firebase/firestore';
+import { useEffect, useState } from "react";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { StackRoutes } from "../../../navigations/HomeNavigation";
+import firestore from "@react-native-firebase/firestore";
+import database from "@react-native-firebase/database";
+import { useSelector } from "react-redux";
 
-type UseBangXepHangProps = NativeStackScreenProps<StackRoutes, 'TabHome'>;
+type UseBangXepHangProps = NativeStackScreenProps<StackRoutes, "TabHome">;
 
-// Định nghĩa kiểu dữ liệu cho state `data`
+// Kiểu dữ liệu state `data`
 interface BangXepHangData {
   title?: string;
   btn_back?: string;
@@ -24,45 +26,75 @@ interface BangXepHangData {
   avt3?: string;
 }
 
+// Kiểu dữ liệu user trong bảng xếp hạng
+interface UserData {
+  uid: string;
+  name: string;
+  email: string;
+  avatar: string;
+  luot_lac: number;
+  li_xi: number;
+  kho: string[];
+}
+
 export const useBangXepHang = ({ route, navigation }: UseBangXepHangProps) => {
   const { params } = route;
-
   const [data, setData] = useState<BangXepHangData | null>(null);
+  const [leaderboard, setLeaderboard] = useState<UserData[]>([]);
+  const [userRank, setUserRank] = useState<number | null>(null); // Thứ hạng của user
 
-  // Lấy dữ liệu từ Firebase một lần
+  const user = useSelector((state: any) => state.app.user); // Lấy user từ Redux
+
+  useEffect(() => {
+    fetchData();
+
+    const ref = database().ref("Tranfer-users");
+
+    // Lắng nghe thay đổi real-time
+    const listener = ref.orderByChild("li_xi").on("value", (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        const sortedData: UserData[] = Object.keys(data)
+          .map((key) => ({ uid: key, ...data[key] }))
+          .sort((a, b) => b.li_xi - a.li_xi); // Sắp xếp theo `li_xi` giảm dần
+
+        setLeaderboard(sortedData);
+
+        // Tìm thứ hạng của user hiện tại
+        const userIndex = sortedData.findIndex((u) => u.uid === user?.uid);
+        if (userIndex !== -1) {
+          setUserRank(userIndex + 1); // Thứ hạng bắt đầu từ 1
+        } else {
+          setUserRank(null); // Không tìm thấy user
+        }
+      }
+    });
+
+    return () => ref.off("value", listener); // Cleanup listener khi component unmount
+  }, []);
+
+  // Lấy dữ liệu từ Firestore
   const fetchData = async () => {
     const snapshot = await firestore()
-      .collection('Tranfer-PageBangXepHang')
+      .collection("Tranfer-PageBangXepHang")
       .get();
-    snapshot.forEach(doc => {
+    snapshot.forEach((doc) => {
       setData(doc.data() as BangXepHangData);
     });
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
 
+  // Điều hướng về trang chính
   const handleBack = () => {
     navigation.getParent()?.navigate("LiXiVangHomeNavigation", {
       screen: "TetTranhTai",
     });
   };
 
-
-  const userData = [
-    { id: 1, name: "Nguyễn Hoàng Đăng Khoa", lixi: 999 },
-    { id: 2, name: "Nguyễn Thị Khánh Linh", lixi: 80 },
-    { id: 3, name: "Lê Thị Quỳnh Trâm", lixi: 72 },
-    { id: 4, name: "Đoàn Phước Đức", lixi: 68 },
-    { id: 5, name: "Đinh Quang Trung", lixi: 46 },
-    { id: 6, name: "Nguyễn Lương Kiên Hào", lixi: 30 },
-    { id: 48, name: "Lại Ngọc Trâm", lixi: 12 },
-  ]
-
-
   return {
     data,
     handleBack,
-    userData
+    leaderboard,
+    userRank,
+    user,
   };
 };

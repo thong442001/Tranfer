@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
     background_phu: {
         width: 335,
         height: 551,
+        padding: 20
     },
     logo_Vinh_Tuong: {
         width: 105,
@@ -66,5 +67,57 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         color: '#B30D00',
+    },
+    // kho
+    listContainer: {
+        //alignItems: "center",
+        width: 335,
+        height: 500,
+        //backgroundColor: 'blue'
+    },
+    giftItem: {
+        borderRadius: 10,
+        padding: 10,
+        alignItems: "center",
+        margin: 4,
+        width: Dimensions.get('window').width * 0.25,
+        height: Dimensions.get('window').height * 0.2,
+        //backgroundColor: 'blue'
+    },
+    giftImage: {
+        width: 40,
+        height: 50,
+        resizeMode: "contain",
+    },
+    giftName: {
+        fontSize: 10,
+        textAlign: "center",
+        fontWeight: "bold",
+        color: "black",
+        marginVertical: 5,
+    },
+    giftStock: {
+        fontSize: 10,
+        color: "#732F2F",
+    },
+    giftStatus: {
+        fontSize: 10,
+        fontWeight: "bold",
+    },
+    unclaimedText: {
+        fontSize: 14,
+        fontWeight: "bold",
+        color: "black",
+        textAlign: "center",
+        marginVertical: 10,
+        fontFamily: 'SVN-Gotham',
+    },
+    unclaimedNumber: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "#C2030B",
+        textAlign: "center",
+        marginVertical: 10,
+        fontFamily: 'SVN-Gotham',
     },
 });

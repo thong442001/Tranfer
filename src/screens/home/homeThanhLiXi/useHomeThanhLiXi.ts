@@ -81,10 +81,17 @@ export const useHomeThanhLiXi = ({ route, navigation }: UseLiXiVangProps) => {
     });
   };
 
+  const toSieuThiPhuKien = () => {
+    navigation.getParent()?.navigate("LiXiVangHomeNavigation", {
+      screen: "SieuThiPhuKien",
+    });
+  };
+
   return {
     data,
     lixi,
     handleBack,
     toThanhLiXi1,
+    toSieuThiPhuKien,
   };
 };
