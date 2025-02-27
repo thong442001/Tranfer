@@ -40,17 +40,26 @@ export const styles = StyleSheet.create({
         fontFamily: 'SVN-Gotham',
         textAlign: 'center',
     },
-    vUser1: {
+    content_2_user: {
         position: 'absolute',
-        top: 350,
-        left: 60,
-        gap: 10,
+        top: Dimensions.get('window').height * 0.32,
+        //backgroundColor: '#333333',
+        width: Dimensions.get('window').width * 0.9,
+        height: Dimensions.get('window').height * 0.3,
+        flexDirection: 'row',
+        gap: Dimensions.get('window').width * 0.05,
+    },
+    vUser1: {
+        width: Dimensions.get('window').width * 0.4,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     avt: {
         width: 81,
         height: 85,
     },
     name1: {
+        width: Dimensions.get('window').width * 0.3,
         color: '#C2030B',
         fontSize: 12,
         fontWeight: '400',
@@ -58,12 +67,12 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
     },
     vUser2: {
-        position: 'absolute',
-        top: 350,
-        right: 60,
-        gap: 10,
+        width: Dimensions.get('window').width * 0.4,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     name2: {
+        width: Dimensions.get('window').width * 0.3,
         color: '#F8EC23',
         fontSize: 12,
         fontWeight: '400',

@@ -38,7 +38,7 @@ const GameThuTaiBanVit: React.FC<ThuTaiBanvitProps> = ({
                 resizeMode="contain"
             >
                 <CountdownTimer
-                    initialSeconds={3}
+                    initialSeconds={10}
                     onTimeEnd={() => {
                         setIsTimeUp(true);  // Khi hết giờ, ngăn không cho bắn vít
                         onTimeEnd(); // Gọi sự kiện từ component cha (nếu cần)

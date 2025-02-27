@@ -158,9 +158,6 @@ export const useLacLocVang = ({ route, navigation }: UseLacLocVangProps) => {
       // Trừ 1 lượt lắc
       await userLuotLacRef.transaction(currentLuot => (currentLuot || 0) > 0 ? currentLuot - 1 : 0);
 
-      // Cập nhật lại state
-      setLuot_lac(prev => Math.max(prev - 1, 0));
-
       // ✅ Lưu quà vào state để hiển thị UI (danh sách 1 quà)
       setSelectedGift([randomGift]); // 🆕 Lưu vào mảng thay vì 1 object
 
@@ -201,27 +198,24 @@ export const useLacLocVang = ({ route, navigation }: UseLacLocVangProps) => {
             status: "Chưa nhận",
           });
         }
+      }
 
-        // Cập nhật mã số may mắn vào kho
-        const userMsmmRef = userGiftRef.child("msmm");
-        const msmmSnapshot = await userMsmmRef.once("value");
-        if (msmmSnapshot.exists()) {
-          const currentStock = msmmSnapshot.val().stock || 0;
-          await userMsmmRef.update({ stock: currentStock + 1 });
-        } else {
-          await userMsmmRef.set({
-            ...msmmData,
-            stock: 1,
-            status: "Chưa nhận",
-          });
-        }
+      // Cập nhật mã số may mắn vào kho
+      const userMsmmRef = userGiftRef.child("msmm");
+      const msmmSnapshot = await userMsmmRef.once("value");
+      if (msmmSnapshot.exists()) {
+        const currentStock = msmmSnapshot.val().stock || 0;
+        await userMsmmRef.update({ stock: currentStock + 10 });
+      } else {
+        await userMsmmRef.set({
+          ...msmmData,
+          stock: 10,
+          status: "Chưa nhận",
+        });
       }
 
       // Trừ 10 lượt lắc
       await userLuotLacRef.transaction(currentLuot => (currentLuot || 0) >= 10 ? currentLuot - 10 : 0);
-
-      // Cập nhật lại state
-      setLuot_lac(prev => Math.max(prev - 10, 0));
 
       // ✅ Lưu danh sách quà để hiển thị UI
       setSelectedGift(newGifts);

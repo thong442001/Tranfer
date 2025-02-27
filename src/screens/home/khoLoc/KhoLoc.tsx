@@ -185,6 +185,8 @@ const KhoLoc: React.FC<KhoLocProps> = ({ route, navigation }) => {
                     renderItem={renderGiftItem}
                     numColumns={3}
                     contentContainerStyle={styles.listContainer}
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
                   />
                 ) : (
                   <FlatList
@@ -193,6 +195,8 @@ const KhoLoc: React.FC<KhoLocProps> = ({ route, navigation }) => {
                     renderItem={renderGiftItem}
                     numColumns={3}
                     contentContainerStyle={styles.listContainer}
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
                   />
                 )
             }

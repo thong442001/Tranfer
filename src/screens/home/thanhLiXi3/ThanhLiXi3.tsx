@@ -21,10 +21,10 @@ const ThanhLiXi3: React.FC<ThanhLiXi3Props> = ({ route, navigation }) => {
 
   const {
     data,
-    player1,
-    player2,
+    Player1,
+    Player2,
     handleLeaveMatch,
-    toThanhLiXi4
+    setReady
   } = useThanhLiXi3({ route, navigation });
 
   return (
@@ -79,30 +79,59 @@ const ThanhLiXi3: React.FC<ThanhLiXi3Props> = ({ route, navigation }) => {
         </View>
 
         <View
-          style={styles.vUser1}
+          style={styles.content_2_user}
         >
-          <Image
-            style={styles.avt}
-            source={{ uri: data?.avt1 }}
-          />
-          <Text
-            style={styles.name1}
-          >{player1?.name}
-          </Text>
+          <View
+            style={styles.vUser1}
+          >
+            {
+              Player1?.ready
+                ? <Text
+                  style={styles.name1}
+                >Sẵn sàng
+                </Text>
+                :
+                <Text
+                  style={styles.name1}
+                >Chờ bạn...
+                </Text>
+            }
+            <Image
+              style={styles.avt}
+              source={{ uri: data?.avt1 }}
+            />
+            <Text
+              style={styles.name1}
+            >{Player1?.name}
+            </Text>
+          </View>
+
+          <View
+            style={styles.vUser2}
+          >
+            {
+              Player2?.ready
+                ? <Text
+                  style={styles.name2}
+                >Sẵn sàng
+                </Text>
+                :
+                <Text
+                  style={styles.name2}
+                >Chờ đối thủ...
+                </Text>
+            }
+            <Image
+              style={styles.avt}
+              source={{ uri: data?.avt2 }}
+            />
+            <Text
+              style={styles.name2}
+            >{Player2?.name}
+            </Text>
+          </View>
         </View>
 
-        <View
-          style={styles.vUser2}
-        >
-          <Image
-            style={styles.avt}
-            source={{ uri: data?.avt2 }}
-          />
-          <Text
-            style={styles.name2}
-          >{player2?.name}
-          </Text>
-        </View>
 
         <View
           style={styles.vTime}
@@ -111,7 +140,7 @@ const ThanhLiXi3: React.FC<ThanhLiXi3Props> = ({ route, navigation }) => {
         </View>
 
         <TouchableOpacity
-          onPress={toThanhLiXi4}
+          onPress={setReady}
           style={styles.vBtnChoi}
         >
           <Image

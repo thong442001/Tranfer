@@ -62,6 +62,7 @@ export const useThanhLiXi2 = ({ route, navigation }: UseThanhLiXi2Props) => {
 
     return () => {
       roomRef.off("value", listener);
+      handleLeaveMatch();
     };
   }, [roomId]);
 
@@ -83,7 +84,12 @@ export const useThanhLiXi2 = ({ route, navigation }: UseThanhLiXi2Props) => {
       foundRoomId = roomKey;
 
       await matchRef.child(foundRoomId).update({
-        player2: { id: userId, name: userName },
+        player2: {
+          id: userId,
+          name: userName,
+          score: 0,
+          ready: false,
+        },
         status: "pending",
       });
 
@@ -93,7 +99,12 @@ export const useThanhLiXi2 = ({ route, navigation }: UseThanhLiXi2Props) => {
       foundRoomId = newRoomRef.key as string;
 
       await newRoomRef.set({
-        player1: { id: userId, name: userName },
+        player1: {
+          id: userId,
+          name: userName,
+          score: 0,
+          ready: false,
+        },
         player2: null,
         status: "waiting",
       });

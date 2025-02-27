@@ -4,9 +4,9 @@ import { LiXiVangRoutes } from '../../../navigations/HomeNavigation';
 import firestore from '@react-native-firebase/firestore';
 import database from "@react-native-firebase/database";
 import { useSelector } from "react-redux";
+
 type UseThanhLiXi3Props = NativeStackScreenProps<LiXiVangRoutes, 'ThanhLiXi3'>;
 
-// Định nghĩa kiểu dữ liệu cho state `data`
 interface ThanhLiXi3Data {
   title?: string;
   btn_back?: string;
@@ -18,101 +18,116 @@ interface ThanhLiXi3Data {
 }
 
 export const useThanhLiXi3 = ({ route, navigation }: UseThanhLiXi3Props) => {
-  const { params } = route as {
-    params: {
-      game: string,
-      roomId: string,
-    }
-  };
-
-  console.log(params.roomId);
+  const { params } = route as { params: { game: string, roomId: string } };
   const user = useSelector((state: any) => state.app.user);
+
   const [data, setData] = useState<ThanhLiXi3Data | null>(null);
-  const [player1, setPlayer1] = useState<{ id?: string; name?: string } | null>(null);
-  const [player2, setPlayer2] = useState<{ id?: string; name?: string } | null>(null);
-  // Firebase collection reference
+  const [Player1, setPlayer1] = useState<{ id?: string; name?: string; ready?: boolean } | null>(null);
+  const [Player2, setPlayer2] = useState<{ id?: string; name?: string; ready?: boolean } | null>(null);
+  const [Player1_rt, setPlayer1_rt] = useState<{ id?: string; name?: string; ready?: boolean } | null>(null);
+  const [Player2_rt, setPlayer2_rt] = useState<{ id?: string; name?: string; ready?: boolean } | null>(null);
+
   const fb = firestore().collection('Tranfer-PageThanhLiXi3');
+  const roomRef = database().ref(`matchmaking/${params.game}/${params.roomId}`);
 
   useEffect(() => {
+    // Lắng nghe dữ liệu giao diện
     const unsubscribe = fb.limit(1).onSnapshot(querySnapshot => {
       querySnapshot.forEach(doc => {
-        setData({
-          title: doc.data()?.title,
-          btn_back: doc.data()?.btn_back,
-          backGround: doc.data()?.backGround,
-          avt1: doc.data()?.avt1,
-          avt2: doc.data()?.avt2,
-          btn_choi: doc.data()?.btn_choi,
-          btn_huy: doc.data()?.btn_huy,
-        });
+        setData(doc.data() as ThanhLiXi3Data);
       });
     });
 
-    const roomRef = database().ref(`matchmaking/${params.game}/${params.roomId}`);
-
-    // Lắng nghe sự thay đổi của phòng
+    // Lắng nghe trạng thái phòng
     const listener = roomRef.on("value", (snapshot) => {
       if (snapshot.exists()) {
         const roomData = snapshot.val();
+        const { player1, player2 } = roomData;
+        setPlayer1_rt(player1);
+        setPlayer2_rt(player2);
 
-        // Kiểm tra nếu user hiện tại là player1 hay player2
-        if (roomData.player1?.id === user.uid) {
-          setPlayer1(roomData.player1);
-          setPlayer2(roomData.player2 || null);
-        } else {
-          setPlayer1(roomData.player2);
-          setPlayer2(roomData.player1);
+        if (!player1 || !player2) return;
+
+        // Hoán đổi nếu user hiện tại là player2
+        const isCurrentUserPlayer1 = player1.id === user?.uid;
+        setPlayer1(isCurrentUserPlayer1 ? player1 : player2);
+        setPlayer2(isCurrentUserPlayer1 ? player2 : player1);
+
+        // Kiểm tra nếu cả 2 đã sẵn sàng và chưa chơi
+        if (roomData.player1?.ready && roomData.player2?.ready && !roomData.playing) {
+          startGame();
         }
       } else {
-        // Nếu phòng bị xóa, đẩy user về trang chính
-        navigation.navigate("LiXiVang");
+        navigation.navigate("LiXiVang"); // Nếu phòng bị xóa, quay về trang chính
       }
     });
+
+
     return () => {
-      unsubscribe(); // Cleanup để tránh memory leak
-      roomRef.off("value", listener); // Cleanup khi component unmount
-    }
+      unsubscribe();
+      roomRef.off("value", listener);
+    };
   }, []);
 
+  // Đánh dấu người chơi đã sẵn sàng
+  const setReady = async () => {
+    if (!user?.uid || (!Player1?.id && !Player2?.id)) return;
 
+    const currentPlayerKey = user.uid === Player1_rt?.id ? "player1" : "player2";
+
+    await roomRef.child(currentPlayerKey).update({ ready: true });
+  };
+
+
+  // Khi cả 2 người chơi sẵn sàng -> cập nhật trạng thái `playing` và vào game
+  const startGame = async () => {
+    await roomRef.update({ status: 'playing' });
+    toTetTranhTaiInGame();
+  };
+
+  // Điều hướng vào phòng đấu
+  const toTetTranhTaiInGame = () => {
+    if (params.game === 'ThanhLiXi') {
+      toThanhLiXi4();
+    } else {
+      navigation.navigate("TetTranhTaiInGame",
+        {
+          game: params.game,
+          roomId: params.roomId,
+        });
+    }
+  };
+
+  // Điều hướng vào phòng ThanhLiXi4
+  const toThanhLiXi4 = () => {
+    navigation.getParent()?.navigate("LiXiVangHomeNavigation", { screen: "ThanhLiXi4" });
+  };
+
+  // Thoát phòng
   const handleLeaveMatch = async () => {
     if (params.roomId) {
-      await leaveMatch(params.roomId, user.uid);
-
+      await leaveMatch(user.uid);
     }
     navigation.navigate("LiXiVang");
   };
 
-  const toThanhLiXi4 = () => {
-    navigation.getParent()?.navigate("LiXiVangHomeNavigation", {
-      screen: "ThanhLiXi4",
-    });
-  };
-
-  const leaveMatch = async (roomId: string, userId: string) => {
-    const roomRef = database().ref(`matchmaking/${params.game}/${roomId}`);
+  const leaveMatch = async (userId: string) => {
     const snapshot = await roomRef.once("value");
-
     if (!snapshot.exists()) return false;
 
     const roomData = snapshot.val();
-
-    // Nếu user là player1 hoặc player2 thì xóa phòng ngay lập tức
     if (roomData.player1?.id === userId || roomData.player2?.id === userId) {
       await roomRef.remove();
       return true;
     }
-
     return false;
   };
 
-
-
   return {
     data,
-    player1,
-    player2,
+    Player1,
+    Player2,
+    setReady,
     handleLeaveMatch,
-    toThanhLiXi4
   };
 };
