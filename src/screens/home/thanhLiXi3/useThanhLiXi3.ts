@@ -54,7 +54,7 @@ export const useThanhLiXi3 = ({ route, navigation }: UseThanhLiXi3Props) => {
         setPlayer2(isCurrentUserPlayer1 ? player2 : player1);
 
         // Kiểm tra nếu cả 2 đã sẵn sàng và chưa chơi
-        if (roomData.player1?.ready && roomData.player2?.ready && !roomData.playing) {
+        if (roomData.player1?.ready && roomData.player2?.ready) {
           startGame();
         }
       } else {
@@ -88,7 +88,11 @@ export const useThanhLiXi3 = ({ route, navigation }: UseThanhLiXi3Props) => {
   // Điều hướng vào phòng đấu
   const toTetTranhTaiInGame = () => {
     if (params.game === 'ThanhLiXi') {
-      toThanhLiXi4();
+      navigation.navigate("ThanhLiXi4",
+        {
+          game: params.game,
+          roomId: params.roomId,
+        });
     } else {
       navigation.navigate("TetTranhTaiInGame",
         {
@@ -96,11 +100,6 @@ export const useThanhLiXi3 = ({ route, navigation }: UseThanhLiXi3Props) => {
           roomId: params.roomId,
         });
     }
-  };
-
-  // Điều hướng vào phòng ThanhLiXi4
-  const toThanhLiXi4 = () => {
-    navigation.getParent()?.navigate("LiXiVangHomeNavigation", { screen: "ThanhLiXi4" });
   };
 
   // Thoát phòng

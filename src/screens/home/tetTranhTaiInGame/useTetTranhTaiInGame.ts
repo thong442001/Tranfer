@@ -26,16 +26,15 @@ export const useTetTranhTaiInGame = ({ route, navigation }: UseTetTranhTaiInGame
   const user = useSelector((state: any) => state.app.user); // Lấy thông tin user hiện tại
 
   const [data, setData] = useState<TetTranhTaiInGameData | null>(null);
-  const [score, setScoreState] = useState<number>(0);
-  const [score2, setScore2] = useState<number>(0); // Điểm số của đối thủ
-  const [player1Name, setPlayer1Name] = useState<string>(''); // Tên của chính mình
-  const [player2Name, setPlayer2Name] = useState<string>(''); // Tên của đối thủ
-  const [winner, setWinner] = useState<string | null>(null);
+
+  const [Player1, setPlayer1] = useState<{ id?: string; name?: string; ready?: boolean, score?: number } | null>(null);
+  const [Player2, setPlayer2] = useState<{ id?: string; name?: string; ready?: boolean, score?: number } | null>(null);
+  const [Player1_rt, setPlayer1_rt] = useState<{ id?: string; name?: string; ready?: boolean, score?: number } | null>(null);
+  const [Player2_rt, setPlayer2_rt] = useState<{ id?: string; name?: string; ready?: boolean, score?: number } | null>(null);
 
   // Firebase collection reference
   const fb = firestore().collection('Tranfer-PageTetTranhTaiInGame');
   const roomRef = database().ref(`matchmaking/${params.game}/${params.roomId}`);
-  let isPlayer1 = true; // Mặc định user là player1
 
   useEffect(() => {
     let title = params.game === 'ThuTaiBanVit'
@@ -59,44 +58,28 @@ export const useTetTranhTaiInGame = ({ route, navigation }: UseTetTranhTaiInGame
       });
     });
 
-    // Lắng nghe dữ liệu phòng (score và tên của 2 người chơi)
+    // Lắng nghe trạng thái phòng
     const listener = roomRef.on("value", (snapshot) => {
       if (snapshot.exists()) {
-
-        if (!snapshot.exists()) {
-          Alert.alert("Đối thủ đã thoát", "Bạn sẽ được đưa về trang chủ", [
-            { text: "OK", onPress: () => navigation.navigate("LiXiVang") },
-          ]);
-          return;
-        }
-
         const roomData = snapshot.val();
-
         const { player1, player2 } = roomData;
-        if (!player1 || !player2) {
-          // Nếu đối thủ thoát, cho user còn lại thắng ngay lập tức
-          Alert.alert("Bạn thắng!", "Đối thủ đã rời khỏi trận đấu.", [
-            { text: "OK", onPress: () => handleWinByDefault() },
-          ]);
+        setPlayer1_rt(player1);
+        setPlayer2_rt(player2);
+
+        if (!player1 || !player2) return;
+
+        // Hoán đổi nếu user hiện tại là player2
+        const isCurrentUserPlayer1 = player1.id === user?.uid;
+        setPlayer1(isCurrentUserPlayer1 ? player1 : player2);
+        setPlayer2(isCurrentUserPlayer1 ? player2 : player1);
+
+        // Kiểm tra nếu cả 2 đã sẵn sàng và chưa chơi
+        if (!roomData.player1?.ready && !roomData.player2?.ready) {
+          finished();
         }
 
-
-        // Kiểm tra nếu user là player2, ta hoán đổi
-        if (player2.id === user?.uid) {
-          isPlayer1 = false;
-          setScoreState(player2.score || 0);
-          setScore2(player1.score || 0);
-          setPlayer1Name(player2.name || "Bạn");
-          setPlayer2Name(player1.name || "Đối thủ");
-        } else {
-          isPlayer1 = true;
-          setScoreState(player1.score || 0);
-          setScore2(player2.score || 0);
-          setPlayer1Name(player1.name || "Bạn");
-          setPlayer2Name(player2.name || "Đối thủ");
-        }
-
-
+      } else {
+        navigation.navigate("LiXiVang"); // Nếu phòng bị xóa, quay về trang chính
       }
     });
 
@@ -106,26 +89,29 @@ export const useTetTranhTaiInGame = ({ route, navigation }: UseTetTranhTaiInGame
     };
   }, []);
 
-  const handleLeaveGame = async () => {
-    if (!user?.uid) return;
+  const finished = async () => {
+    await roomRef.update({ status: 'finished' });
+    toBangXepHang();
+  };
 
+  // Thoát phòng
+  const handleLeaveMatch = async () => {
+    if (params.roomId) {
+      await leaveMatch(user.uid);
+    }
+    navigation.navigate("LiXiVang");
+  };
+
+  const leaveMatch = async (userId: string) => {
     const snapshot = await roomRef.once("value");
-    if (!snapshot.exists()) return;
+    if (!snapshot.exists()) return false;
 
     const roomData = snapshot.val();
-    const isPlayer1 = roomData.player1?.id === user.uid;
-    const playerKey = isPlayer1 ? "player1" : "player2";
-
-    // Xóa người chơi khỏi phòng
-    await roomRef.child(playerKey).remove();
-
-    // Nếu phòng trống -> xóa luôn
-    const updatedRoom = await roomRef.once("value");
-    if (!updatedRoom.val()?.player1 && !updatedRoom.val()?.player2) {
+    if (roomData.player1?.id === userId || roomData.player2?.id === userId) {
       await roomRef.remove();
+      return true;
     }
-
-    navigation.navigate("LiXiVang"); // Quay về trang chủ
+    return false;
   };
 
 
@@ -134,74 +120,73 @@ export const useTetTranhTaiInGame = ({ route, navigation }: UseTetTranhTaiInGame
   };
 
   const handleTimeEnd = async () => {
-    let winnerId: "player1" | "player2" | null = null;
-    let isDraw = false;
+    if (!user?.uid || (!Player1?.id && !Player2?.id)) return;
 
-    if (score > score2) {
-      winnerId = "player1";
-    } else if (score < score2) {
-      winnerId = "player2";
+    const userRef1 = database().ref(`Tranfer-users/${Player1?.id}`);
+    const userRef2 = database().ref(`Tranfer-users/${Player2?.id}`);
+
+    let li_xi_increase_1 = 0;
+    let li_xi_increase_2 = 0;
+    let message = "";
+
+    // 🔥 Xác định kết quả
+    if ((Player1?.score ?? 0) > (Player2?.score ?? 0)) {
+      li_xi_increase_1 = 1; // Người thắng +1 lì xì
+      message = Player1?.id === user.uid
+        ? "🎉 Bạn đã thắng! +1 Lì xì 🎁"
+        : "😢 Bạn đã thua! Không nhận được lì xì.";
+    } else if ((Player1?.score ?? 0) < (Player2?.score ?? 0)) {
+      li_xi_increase_2 = 1; // Người thắng +1 lì xì
+      message = Player2?.id === user.uid
+        ? "🎉 Bạn đã thắng! +1 Lì xì 🎁"
+        : "😢 Bạn đã thua! Không nhận được lì xì.";
     } else {
-      isDraw = true; // Trường hợp hòa
+      li_xi_increase_1 = 1; // Hòa -> cả 2 được +1
+      li_xi_increase_2 = 1;
+      message = "🤝 Hòa nhau! Cả hai đều nhận +1 Lì xì 🎁";
     }
 
-    setWinner(winnerId);
-
-    await roomRef.update({ status: "finished" });
-
-    if (isDraw) {
-      await giveWinnerLiXi("player1");
-      await giveWinnerLiXi("player2");
-    } else if (winnerId) {
-      await giveWinnerLiXi(winnerId);
+    // 🔥 Cập nhật `li_xi` trong Firebase chỉ tăng khi player1 nhấn
+    if (li_xi_increase_1 && Player1_rt?.id === user.uid) {
+      await userRef1.child("li_xi").transaction((current) => (current || 0) + li_xi_increase_1);
+    }
+    if (li_xi_increase_2 && Player1_rt?.id === user.uid) {
+      await userRef2.child("li_xi").transaction((current) => (current || 0) + li_xi_increase_2);
     }
 
-    Alert.alert(
-      isDraw ? "Hòa" : winnerId === "player1" ? `${player1Name} thắng!` : `${player2Name} thắng!`,
-      `Điểm số: ${score} - ${score2}`,
-      [{ text: "OK", onPress: () => toBangXepHang() }]
-    );
-  };
-
-  const giveWinnerLiXi = async (winner: "player1" | "player2") => {
-    const snapshot = await roomRef.once("value");
-    if (!snapshot.exists()) return;
-
-    const roomData = snapshot.val();
-    const winnerUid = roomData[winner]?.id;
-
-    if (winnerUid) {
-      const userRef = database().ref(`Tranfer-users/${winnerUid}/li_xi`);
-      userRef.transaction((currentLiXi) => (currentLiXi || 0) + 1);
-    }
+    // 🔥 Hiển thị kết quả qua Alert
+    Alert.alert("Kết quả", message, [{ text: "OK", onPress: () => setReady() }]);
   };
 
   // 🔥 Hàm cập nhật điểm số vào Firebase
-  const setScore = async (newScore: number) => {
-    setScoreState(newScore);
-    await roomRef.child(`player${isPlayer1 ? "1" : "2"}`).update({ score: newScore });
+  const setScore = async () => {
+    if (!user?.uid || (!Player1?.id && !Player2?.id)) return;
+
+    const currentPlayerKey = user.uid === Player1_rt?.id ? "player1" : "player2";
+
+    // Lấy điểm số hiện tại từ Firebase trước khi cập nhật
+    const snapshot = await roomRef.child(`${currentPlayerKey}/score`).once("value");
+    const currentScore = snapshot.val() || 0; // Nếu chưa có điểm, mặc định là 0
+
+    // Cập nhật điểm số mới (cộng thêm 1)
+    await roomRef.child(currentPlayerKey).update({ score: currentScore + 1 });
   };
 
-  const handleWinByDefault = async () => {
-    await roomRef.update({ status: "finished" });
+  // Đánh dấu người chơi đã sẵn sàng
+  const setReady = async () => {
+    if (!user?.uid || (!Player1?.id && !Player2?.id)) return;
 
-    // Người chơi còn lại là người thắng
-    const winner = isPlayer1 ? "player1" : "player2";
-    await giveWinnerLiXi(winner);
+    const currentPlayerKey = user.uid === Player1_rt?.id ? "player1" : "player2";
 
-    toBangXepHang()
+    await roomRef.child(currentPlayerKey).update({ ready: false });
   };
-
 
   return {
     data,
-    score,
-    setScore,
-    score2,
-    player1Name,
-    player2Name,
+    Player1,
+    Player2,
+    handleLeaveMatch,
     handleTimeEnd,
-    winner,
-    handleLeaveGame
+    setScore,
   };
 };

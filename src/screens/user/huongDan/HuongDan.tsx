@@ -64,8 +64,6 @@ const HuongDan: React.FC<LoginProps> = ({ route, navigation }) => {
           </View>
         </View>
 
-
-
         <ImageBackground
           source={{ uri: data?.img_chinh }}
           style={styles.img_chinh}

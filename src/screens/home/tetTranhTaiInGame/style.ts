@@ -63,6 +63,7 @@ export const styles = StyleSheet.create({
         right: 30,
     },
     name: {
+        width: Dimensions.get('window').width * 0.4,
         color: '#FFFFFF',
         fontSize: 13,
         fontWeight: '400',

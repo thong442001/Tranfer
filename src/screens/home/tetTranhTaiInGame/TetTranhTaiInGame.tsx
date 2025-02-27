@@ -28,14 +28,11 @@ const TetTranhTaiInGame: React.FC<TetTranhTaiInGameProps> = ({
 
   const {
     data,
-    score,
-    setScore,
-    score2,
-    player1Name,
-    player2Name,
+    Player1,
+    Player2,
+    handleLeaveMatch,
     handleTimeEnd,
-    winner,
-    handleLeaveGame
+    setScore,
   } = useTetTranhTaiInGame({ route, navigation });
 
   // Kiểm soát việc render game
@@ -58,7 +55,7 @@ const TetTranhTaiInGame: React.FC<TetTranhTaiInGameProps> = ({
       >
         <TouchableOpacity
           activeOpacity={1}
-          onPress={handleLeaveGame}
+          onPress={handleLeaveMatch}
           style={styles.vBack}
         >
           <Image
@@ -83,11 +80,11 @@ const TetTranhTaiInGame: React.FC<TetTranhTaiInGameProps> = ({
               />
               <Text
                 style={styles.diem1}
-              >{score}</Text>
+              >{Player1?.score}</Text>
             </ImageBackground>
             <Text
               style={styles.name}
-            >{player1Name}
+            >{Player1?.name}
             </Text>
           </View>
 
@@ -110,12 +107,12 @@ const TetTranhTaiInGame: React.FC<TetTranhTaiInGameProps> = ({
               />
               <Text
                 style={styles.diem2}
-              >{score2}
+              >{Player2?.score}
               </Text>
             </ImageBackground>
             <Text
               style={styles.name}
-            >{player2Name}
+            >{Player2?.name}
             </Text>
           </View>
         </View >
@@ -131,21 +128,21 @@ const TetTranhTaiInGame: React.FC<TetTranhTaiInGameProps> = ({
             data?.title == 'THỬ TÀI BẮN VÍT'
               ? (
                 <GameThuTaiBanVit
-                  score={score}
-                  setScore={() => setScore}
+                  score={(Player1?.score ?? 0)}
+                  setScore={setScore}
                   onTimeEnd={handleTimeEnd}
                 />
               ) : (data?.title == 'THÁNH ÁNH KIM')
                 ? (
                   <GameThanhAnhKim
-                    score={score}
-                    setScore={() => setScore}
+                    score={(Player1?.score ?? 0)}
+                    setScore={setScore}
                     onTimeEnd={handleTimeEnd}
                   />
                 ) : (
                   <GameAnhHungSieuBaoVe
-                    score={score}
-                    setScore={() => setScore}
+                    score={(Player1?.score ?? 0)}
+                    setScore={setScore}
                     onTimeEnd={handleTimeEnd}
                   />
                 )

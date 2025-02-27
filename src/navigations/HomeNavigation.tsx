@@ -32,7 +32,7 @@ export type LiXiVangRoutes = {
   ThanhLiXi1: undefined;
   ThanhLiXi2: { game: string };
   ThanhLiXi3: { game: string, roomId: string };
-  ThanhLiXi4: undefined;
+  ThanhLiXi4: { game: string, roomId: string };
   TetTranhTaiTimDoiThu: { game: string };
   TetTranhTaiInGame: { game: string, roomId: string };
   BangXepHang: undefined;

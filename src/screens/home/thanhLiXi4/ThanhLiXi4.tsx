@@ -10,17 +10,20 @@ import {
 import { styles } from "./style";
 import LgTxtYellow from "../../../components/lineGradient/LgTxtYellow";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StackRoutes } from '../../../navigations/HomeNavigation';
+import { LiXiVangRoutes } from '../../../navigations/HomeNavigation';
 import { useThanhLiXi4 } from './useThanhLiXi4';  // Import hook useLogin
 
 // Định nghĩa kiểu props cho màn hình Login
-type ThanhLiXi4Props = NativeStackScreenProps<StackRoutes, 'TabHome'>;
+type ThanhLiXi4Props = NativeStackScreenProps<LiXiVangRoutes, 'ThanhLiXi4'>;
 
 const ThanhLiXi4: React.FC<ThanhLiXi4Props> = ({ route, navigation }) => {
 
   const {
     data,
-    handleBack,
+    Player1,
+    Player2,
+    handleTimeEnd,
+    handleLeaveMatch,
   } = useThanhLiXi4({ route, navigation });
 
   return (
@@ -33,7 +36,7 @@ const ThanhLiXi4: React.FC<ThanhLiXi4Props> = ({ route, navigation }) => {
           style={styles.vHeader}
         >
           <TouchableOpacity
-            onPress={handleBack}
+            onPress={handleLeaveMatch}
           >
             <Image
               source={{ uri: data?.btn_back }}
@@ -83,7 +86,7 @@ const ThanhLiXi4: React.FC<ThanhLiXi4Props> = ({ route, navigation }) => {
           </View>
 
           <TouchableOpacity
-            onPress={handleBack}
+            onPress={handleTimeEnd}
             style={styles.vBtnChiaSe}
           >
             <Image
@@ -93,7 +96,7 @@ const ThanhLiXi4: React.FC<ThanhLiXi4Props> = ({ route, navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={handleBack}
+            onPress={handleTimeEnd}
             style={styles.vBtnNhanLoc}
           >
             <Image
