@@ -4,6 +4,9 @@ import { LiXiVangRoutes } from '../../../navigations/HomeNavigation';
 import firestore from '@react-native-firebase/firestore';
 import database from '@react-native-firebase/database';
 import { useSelector } from 'react-redux';
+import {
+  Alert,
+} from 'react-native';
 type UseTetTranhTaiTimDoiThuProps = NativeStackScreenProps<LiXiVangRoutes, 'TetTranhTaiTimDoiThu'>;
 
 // Định nghĩa kiểu dữ liệu cho state `data`
@@ -73,9 +76,34 @@ export const useTetTranhTaiTimDoiThu = ({ route, navigation }: UseTetTranhTaiTim
     });
   };
 
+  const checkTime = () => {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+
+    // Kiểm tra nếu thời gian nằm trong khoảng cho phép
+    const allowedTimes = [
+      { start: { h: 12, m: 45 }, end: { h: 13, m: 0 } },
+      { start: { h: 18, m: 0 }, end: { h: 20, m: 0 } },
+    ];
+
+    const isValid = allowedTimes.some(
+      ({ start, end }) =>
+        (hours > start.h || (hours === start.h && minutes >= start.m)) &&
+        (hours < end.h || (hours === end.h && minutes < end.m))
+    );
+
+    if (isValid) {
+      toThanhLiXi2();
+    } else {
+      Alert.alert("Chưa đến giờ để thi đấu!");
+    }
+
+  };
+
   return {
     data,
     handleBack,
-    toThanhLiXi2
+    checkTime
   };
 };
